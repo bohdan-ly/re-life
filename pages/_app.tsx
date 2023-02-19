@@ -2,7 +2,11 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import Router from 'next/router';
 import NProgress from 'nprogress'; //nprogress module
-import React, { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
+
+import { GlobalStyles } from 'shared/ui/theme';
+
+import { Footer } from 'widgets/session/footer';
 
 import { Layouts } from 'app';
 import type { AppProps } from 'next/app';
@@ -34,8 +38,15 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Layouts withLayout={!Component.getLayout}>{getLayout(<Component {...pageProps} />)}</Layouts>
+      <Layouts withLayout={!Component.getLayout}>
+        {getLayout(
+          <>
+            <Component {...pageProps} />
+            <GlobalStyles />
+            <Footer />
+          </>,
+        )}
+      </Layouts>
     </>
   );
 }

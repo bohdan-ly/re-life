@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-
 module.exports = {
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
@@ -9,6 +8,13 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        maximus: `rgb(var(--color-maximus) / <alpha-value>)`,
+        linx: `rgb(var(--color-linx) / <alpha-value>)`,
+        primary: `var(--bg-primary)`,
+        secondary: `var(--bg-secondary)`,
+        primaryDarken: `var(--bg-primary-dk)`,
+      },
       keyframes: {
         shimmer: {
           '100%': {

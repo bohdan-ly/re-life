@@ -1,0 +1,15 @@
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    "preval",
+    "macros",
+    "@babel/plugin-syntax-object-rest-spread",
+    [
+      "tailwind-components",
+      {
+        "config": "./tailwind.js",
+        "format": "auto"
+      }
+    ]
+  ]
+}
