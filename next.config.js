@@ -25,6 +25,9 @@ const withImagesConf = {
 
 const nextConfig = {
   reactStrictMode: true,
+  serverRuntimeConfig: {
+    PROJECT_ROOT: __dirname,
+  },
   images: {
     remotePatterns: [
       {

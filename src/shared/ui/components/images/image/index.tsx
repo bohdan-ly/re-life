@@ -3,6 +3,7 @@ import React from 'react';
 
 type PropsType = ImageProps & {
   alt: string;
+  className?: string;
   fallback?: string | JSX.Element;
 };
 

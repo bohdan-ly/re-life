@@ -17,7 +17,7 @@ export const NavButton: React.FC<{
       }`}
     >
       {icon}
-      <span className={`tab block text-xs${(isActive && ' border-b-2 border-secondary') || ''}`}>
+      <span className={`tab block${(isActive && ' border-b-2 border-secondary') || ''}`}>
         {title || ''}
       </span>
     </a>

@@ -15,6 +15,9 @@ module.exports = {
         secondary: `var(--bg-secondary)`,
         primaryDarken: `var(--bg-primary-dk)`,
       },
+      boxShadow: {
+        btPrimary: '0px 15px 10px -15px var(--bg-secondary)',
+      },
       keyframes: {
         shimmer: {
           '100%': {
