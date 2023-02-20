@@ -9,11 +9,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        maximus: `rgb(var(--color-maximus) / <alpha-value>)`,
-        linx: `rgb(var(--color-linx) / <alpha-value>)`,
         primary: `var(--bg-primary)`,
         secondary: `var(--bg-secondary)`,
         primaryDarken: `var(--bg-primary-dk)`,
+        primaryColorSemiTransparent: `var(--text-primary-transparent)`,
+        primaryColor: `var(--text-primary)`,
+        borderPrimary: `var(--border-primary)`,
+      },
+      position: {
+        centerY: 'absolute top-1/2 -translate-y-1/2',
+        center: 'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
+        centerX: 'absolute left-1/2 transform -translate-x-1/2',
       },
       boxShadow: {
         btPrimary: '0px 15px 10px -15px var(--bg-secondary)',

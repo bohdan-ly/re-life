@@ -7,7 +7,11 @@ export const Attributes = () => {
   const [attributes, setAttributes] = React.useState([
     {
       id: '1',
-      icon: <Mana />,
+      icon: (
+        <div className="flex items-center h-full">
+          <span className="text-xl font-black align-middle text-black mt-1">1</span>
+        </div>
+      ),
       title: 'Experience',
       abbr: 'XP',
       value: 0,

@@ -20,10 +20,26 @@
   html,
   body {
     height: 100%;
+    color: var(--text-primary);
+
+    svg {
+      path {
+        fill: var(--text-primary);
+      }
+    }
   }
   body {
     font-family: var(--font-norse);
   }
+
+  main {
+    padding-bottom: 110px;
+  }
+}
+
+@mixin background-opacity($color, $opacity: 0.3) {
+  background: $color; /* The Fallback */
+  background: rgba($color, $opacity);
 }
 
 :root {
@@ -41,6 +57,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  --red: #fff;
 
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,

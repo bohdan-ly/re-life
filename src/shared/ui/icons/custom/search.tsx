@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const Search: React.FC<{
   width?: number;
@@ -12,9 +12,9 @@ export const Search: React.FC<{
       width={width}
       height={height}
       aria-hidden="true"
-      className={className || "w-5 h-5 mr-2 -ml-1"}
-      fill={fill || "none"}
-      stroke={stroke || "currentColor"}
+      className={className || 'w-5 h-5 mr-2 -ml-1'}
+      fill={fill || 'none'}
+      stroke={stroke || 'currentColor'}
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >

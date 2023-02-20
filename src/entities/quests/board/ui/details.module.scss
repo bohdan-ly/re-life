@@ -1,0 +1,44 @@
+@media (min-width: 768px) {
+  .details {
+    border-left: 1px solid var(--border-primary);
+    position: relative;
+
+    $size: 20px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 1px;
+      left: -8px;
+      top: 0;
+      background: var(--border-primary);
+    }
+
+    .triangle {
+      position: absolute;
+      left: -(calc($size * 2));
+      top: 50%;
+      width: 0;
+      height: 0;
+      border-bottom: solid $size transparent;
+      border-top: solid $size var(--border-primary);
+      border-left: solid $size transparent;
+      border-right: solid $size transparent;
+      transform: rotate(90deg) translateX(-50%);
+
+      &::after {
+        content: '';
+        width: 0;
+        height: 0;
+        left: -(calc($size - 2px));
+        top: -$size;
+        position: absolute;
+        border-bottom: solid calc($size - 2px) transparent;
+        border-top: solid calc($size - 2px) var(--bg-primary);
+        border-left: solid calc($size - 2px) transparent;
+        border-right: solid calc($size - 2px) transparent;
+      }
+    }
+  }
+}

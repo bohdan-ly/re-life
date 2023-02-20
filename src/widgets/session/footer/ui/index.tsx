@@ -41,11 +41,11 @@ export const Footer = () => {
 
   return (
     <footer className="block fixed bottom-0 inset-x-0 z-50 shadow-lg bg-primaryDarken w-full h-20 border-royal/20">
-      <div id="tabs" className="flex justify-between h-full">
+      <nav id="tabs" className="flex justify-between h-full">
         {tabs.map((tab, idx) => (
           <NavButton key={tab.title + idx} isActive={router.route.includes(tab.path)} {...tab} />
         ))}
-      </div>
+      </nav>
     </footer>
   );
 };
