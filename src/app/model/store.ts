@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import { questsModel } from 'entities/quests/board';
+
+questsModel;
 export const store = configureStore({
   reducer: {
-    test: () => ({ test: null }),
+    quests: questsModel.questReducer,
   },
 });

@@ -1,14 +1,21 @@
 import React from 'react';
 
-import { Corner, Moebius } from 'shared/ui/icons';
+import { useAppDispatch, useAppSelector } from 'shared';
+import { Moebius } from 'shared/ui/icons';
 
-import { QUESTS_MOCK } from '../model';
+import * as model from '../model';
 
-export const Quests: React.FC<{ selectedId: string; className: string }> = ({
-  selectedId,
-  className,
-}) => {
-  const [quests, setQuests] = React.useState(QUESTS_MOCK);
+export const Quests: React.FC<{ className: string }> = ({ className }) => {
+  const dispatch = useAppDispatch();
+  const { quests, selectedId } = useAppSelector((state) => ({
+    quests: model.selectQuests(state),
+    selectedId: model.selectQuestDetailsId(state),
+  }));
+
+  const handleObjectiveDone = async (qId: string) => {
+    const { quest } = await model.getQuestById(qId);
+    dispatch(model.setQuest(quest));
+  };
 
   const getTextSize = (impact: number) => {
     switch (impact) {
@@ -27,8 +34,12 @@ export const Quests: React.FC<{ selectedId: string; className: string }> = ({
 
   return (
     <ul className={`flex flex-col w-full h-full py-6 pl-6 ${className}`}>
-      {quests.map((q) => (
-        <li key={q.id} className="relative inline-block py-4 pl-2 pr-8 gap-4">
+      {quests.map((q, idx) => (
+        <li
+          key={`${q.id}_${idx}`}
+          onClick={() => handleObjectiveDone(q.id)}
+          className="relative inline-block py-4 pl-2 pr-8 gap-4 cursor-pointer"
+        >
           <span
             className={`mt-1 inline-block align-middle overflow-hidden whitespace-nowrap w-full text-ellipsis ${getTextSize(
               q.impact,

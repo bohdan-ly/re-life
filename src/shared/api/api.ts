@@ -1,13 +1,9 @@
 import fetchBuilder from 'fetch-retry';
 import originalFetch from 'isomorphic-fetch';
 
-// import { ApiCategories, ApiProducts, ApiRecipes, ApiFridge } from 'shared/api';
-
 import { notify } from 'shared/ui/theme';
 
 export class Api {
-  // static Auth = ApiAuth;
-
   static handleErrorMessage(obj: { message?: string; msg?: string; code?: number }) {
     if (!obj.message && !obj.msg) return;
     if (obj.code === 4003) return;

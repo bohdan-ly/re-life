@@ -1,30 +1,24 @@
 import React from 'react';
 
+import { useAppSelector } from 'shared';
 import { ChapterTitle } from 'shared/ui/components';
 import { CloseIcon, Hades, MoebiusStar, Rank } from 'shared/ui/icons';
 
+import * as model from '../model';
+
 import styles from './details.module.scss';
 
-type QuestDetailsProps = {
-  id: string;
-  title: string;
-  className: string;
-  description: string;
-  difficulty: number;
-  objectives: Array<{ id: string; title: string; isDone: boolean; isOptional: boolean }>;
-};
-
-export const QuestDetails: React.FC<QuestDetailsProps> = (quest) => {
-  const [reRender, setReRender] = React.useState(0);
+export const QuestDetails: React.FC<{ className: string }> = ({ className }) => {
+  const quest = useAppSelector((state) => model.selectQuestDetails(state));
 
   const handleObjectiveDone = (objId: string) => {
     quest.objectives[0].isDone = !quest.objectives[0].isDone;
-    setReRender((count) => count + 1);
+    // setReRender((count) => count + 1);
   };
 
   return (
     <article
-      className={`flex flex-col py-6 px-6 md:px-12 gap-6 ${styles.details} ${quest.className}`}
+      className={`flex flex-col pb-6 mt-8 px-6 md:px-12 gap-6 ${styles.details} ${className}`}
     >
       <div className={styles.triangle} />
       <CloseIcon

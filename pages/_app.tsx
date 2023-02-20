@@ -9,6 +9,7 @@ import { GlobalStyles } from 'shared/ui/theme';
 import { Footer } from 'widgets/session/footer';
 
 import { Layouts } from 'app';
+import { ConnectAPI } from 'app/providers/with-api';
 import type { AppProps } from 'next/app';
 
 import 'nprogress/nprogress.css';
@@ -41,15 +42,18 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layouts withLayout={!Component.getLayout}>
-        {getLayout(
-          <>
-            <Component {...pageProps} />
-            <GlobalStyles />
-            <Footer />
-          </>,
+      <Layouts
+        withLayout={!Component.getLayout}
+        component={() => (
+          <ConnectAPI>
+            <>
+              <Component {...pageProps} />
+              <GlobalStyles />
+              <Footer />
+            </>
+          </ConnectAPI>
         )}
-      </Layouts>
+      />
     </>
   );
 }
