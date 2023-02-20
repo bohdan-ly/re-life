@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { CoverImage, RLImage } from 'shared/ui/components';
-
-import * as model from '../model';
+import { RLImage } from 'shared/ui/components';
 
 import styles from './achievements.module.scss';
 

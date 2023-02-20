@@ -1,4 +1,6 @@
 import * as React from 'react';
+
+// eslint-disable-next-line import/no-internal-modules
 import { GenericObject } from 'shared/types/generic-object';
 
 import { ErrorDebug } from './error-debug';
@@ -42,7 +44,9 @@ export const DefaultErrorLayout = (props: DefaultErrorLayoutProps): JSX.Element 
         <button type="button">Contact support</button>
       </div>
 
-      {process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && <ErrorDebug error={error} context={context} />}
+      {process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && (
+        <ErrorDebug error={error} context={context} />
+      )}
     </div>
   );
 };

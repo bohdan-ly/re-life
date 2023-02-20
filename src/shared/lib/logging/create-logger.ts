@@ -60,7 +60,8 @@ export const createLogger = (options?: LoggerOptions): Logger => {
     timeFormat = timeFormatFallback,
   } = options ?? {};
   // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle
-  const _prefix: string | undefined = disableAutoWrapPrefix || !prefix?.length ? prefix : `[${prefix}]`;
+  const _prefix: string | undefined =
+    disableAutoWrapPrefix || !prefix?.length ? prefix : `[${prefix}]`;
   // Contains an array of prefixes (tags, time, etc.)
   const prefixes: string[] = [];
 

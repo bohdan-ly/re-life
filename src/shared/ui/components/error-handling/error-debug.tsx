@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-internal-modules
 import { GenericObject } from 'shared/types/generic-object';
 
 export interface ErrorDebugProps {
@@ -35,7 +36,8 @@ export const ErrorDebug = (props: ErrorDebugProps): JSX.Element => {
       <i>
         The below &quot;debug info&quot; are only displayed on non-production stages.
         <br />
-        Note that debug information about the error are also available on the server/browser console.
+        Note that debug information about the error are also available on the server/browser
+        console.
       </i>
 
       <hr />

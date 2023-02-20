@@ -23,19 +23,16 @@ export interface PolymorphicComponent<Props, DefaultElement extends React.Elemen
       component: C;
     } & OverrideProps<Props, C>,
   ): JSX.Element | null;
-  <C extends React.ElementType>(props: DefaultComponentProps<Props, DefaultElement, C>): JSX.Element | null;
+  <C extends React.ElementType>(
+    props: DefaultComponentProps<Props, DefaultElement, C>,
+  ): JSX.Element | null;
 }
 
 /**
  * Props of the component if `component={Component}` is used.
  */
-export type OverrideProps<
-  P,
-  C extends React.ElementType,
-> = (
-  & P
-  & DistributiveOmit<React.ComponentPropsWithRef<C>, keyof P>
-);
+export type OverrideProps<P, C extends React.ElementType> = P &
+  DistributiveOmit<React.ComponentPropsWithRef<C>, keyof P>;
 
 /**
  * Props if `component={Component}` is NOT used.

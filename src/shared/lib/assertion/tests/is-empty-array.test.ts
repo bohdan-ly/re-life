@@ -18,4 +18,4 @@ describe('lib/assertion', () => {
 
     expect(result).toBe(false);
   });
-})
+});

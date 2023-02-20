@@ -24,4 +24,6 @@ import { Primitive } from './primitive';
   // You **will** get auto-completion for `dog` and `cat` literals.
   ```
 */
-export type LiteralUnion<LiteralType, BaseType extends Primitive> = LiteralType | (BaseType & Record<never, never>);
+export type LiteralUnion<LiteralType, BaseType extends Primitive> =
+  | LiteralType
+  | (BaseType & Record<never, never>);

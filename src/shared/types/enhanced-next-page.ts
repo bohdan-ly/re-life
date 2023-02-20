@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { NextPage } from 'next';
+import * as React from 'react';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export type EnhancedNextPage<P = {}, IP = P> = NextPage<P, IP> & {

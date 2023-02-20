@@ -1,8 +1,4 @@
-import React from 'react';
-
 import { RLImage } from 'shared/ui/components';
-
-import * as model from '../model';
 
 import { Achievements } from './achievements';
 import { Attributes } from './attributes';

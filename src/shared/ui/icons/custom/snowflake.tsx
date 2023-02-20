@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const Snowflake: React.FC<{
   width?: string;
@@ -9,9 +9,9 @@ export const Snowflake: React.FC<{
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      fill={fill || "white"}
-      height={height || "24px"}
-      width={width || "24px"}
+      fill={fill || 'white'}
+      height={height || '24px'}
+      width={width || '24px'}
       version="1.1"
       id="Layer_1"
       viewBox="0 0 64 64"
