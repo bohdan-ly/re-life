@@ -1,7 +1,5 @@
 .board {
   width: 90%;
-  height: 70vh;
-  max-height: 70vh;
   margin: auto;
   position: relative;
   display: flex;
@@ -61,5 +59,12 @@
       right: -3px;
       left: unset;
     }
+  }
+}
+
+@media (min-width: 768px) {
+  .board {
+    height: 70vh;
+    max-height: 70vh;
   }
 }
