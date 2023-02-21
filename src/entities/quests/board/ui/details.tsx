@@ -28,7 +28,7 @@ export const QuestDetails: React.FC<{ className: string }> = ({ className }) => 
     <article
       className={`flex flex-col pb-6 mt-8 px-6 md:px-12 gap-6 ${styles.details} ${className}`}
     >
-      <div className={styles.triangle} />
+      <div className={styles.triangle}></div>
       <CloseIcon
         width={36}
         height={36}
