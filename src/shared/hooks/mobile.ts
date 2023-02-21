@@ -2,16 +2,20 @@ import { useDebounceCallback } from '@react-hook/debounce';
 import React from 'react';
 
 export const useMediaLayout = () => {
-  const [width, setWidth] = React.useState<number>(window.innerWidth);
+  const windowDefined = typeof window !== 'undefined';
+  const [width, setWidth] = React.useState<number>(windowDefined ? window.innerWidth : 0);
 
-  const debouncedSizeChange = useDebounceCallback(() => setWidth(window.innerWidth), 1000);
+  const debouncedSizeChange = useDebounceCallback(
+    () => setWidth(windowDefined ? window.innerWidth : 0),
+    1000,
+  );
 
   React.useEffect(() => {
-    window.addEventListener('resize', debouncedSizeChange);
+    if (windowDefined) window.addEventListener('resize', debouncedSizeChange);
     return () => {
-      window.removeEventListener('resize', debouncedSizeChange);
+      if (windowDefined) window.removeEventListener('resize', debouncedSizeChange);
     };
-  }, [debouncedSizeChange]);
+  }, [debouncedSizeChange, windowDefined]);
 
   return width <= 768;
 };

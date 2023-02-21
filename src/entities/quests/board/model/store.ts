@@ -3,13 +3,13 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getQuestById, getQuests } from './api';
 import { Quest, QuestDetails, QuestSliceState, Status } from './types';
 
-export const fetchQuests = createAsyncThunk<{ quests: Quest[]; questDetails: QuestDetails }>(
-  'quests/fetchQuests',
-  async () => {
-    const res = await getQuests();
-    return res;
-  },
-);
+export const fetchQuests = createAsyncThunk<
+  { quests: Quest[]; questDetails: QuestDetails | null },
+  { withQuestDetails: boolean }
+>('quests/fetchQuests', async ({ withQuestDetails = true }) => {
+  const res = await getQuests();
+  return withQuestDetails ? res : { quests: res.quests, questDetails: null };
+});
 
 export const fetchQuestDetails = createAsyncThunk<QuestDetails, Record<string, string>>(
   'quests/fetchQuestDetails',
@@ -21,15 +21,7 @@ export const fetchQuestDetails = createAsyncThunk<QuestDetails, Record<string, s
 
 const initialState: QuestSliceState = {
   quests: [],
-  selectedQuest: {
-    id: '',
-    title: '',
-    impact: 0,
-    difficulty: 0,
-    completed: false,
-    description: '',
-    objectives: [],
-  },
+  selectedQuest: null,
   questStatus: Status.LOADING, // loading | success | error
   status: Status.LOADING, // loading | success | error
 };
@@ -44,7 +36,7 @@ export const questSlice = createSlice({
     setQuestDetailsStatus: (state, action: PayloadAction<Status>) => {
       state.questStatus = action.payload;
     },
-    setQuest: (state, action: PayloadAction<QuestDetails>) => {
+    setQuest: (state, action: PayloadAction<QuestDetails | null>) => {
       state.selectedQuest = action.payload;
     },
   },

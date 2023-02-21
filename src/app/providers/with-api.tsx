@@ -2,7 +2,7 @@ import React from 'react';
 import LoadingBar from 'react-top-loading-bar';
 import useEvent from 'react-use-event-hook';
 
-import { useAppDispatch } from 'shared';
+import { useAppDispatch, useMediaLayout } from 'shared';
 
 import { questsModel } from 'entities/quests/board';
 
@@ -11,6 +11,7 @@ import { questsModel } from 'entities/quests/board';
 // import { AppActions } from "./actions/appActions";
 
 export const ConnectAPI: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const isMobile = useMediaLayout();
   const [progress, _setProgress] = React.useState(0);
   const [networkRequestThread, setNetworkRequestThread] = React.useState<NodeJS.Timeout | string>(
     '',
@@ -35,7 +36,7 @@ export const ConnectAPI: React.FC<{ children: React.ReactNode }> = ({ children }
   const fetchNecessaryData = useEvent(async () => {
     console.log('Fetching necessary data...');
 
-    await dispatch(questsModel.fetchQuests());
+    await dispatch(questsModel.fetchQuests({ withQuestDetails: !isMobile }));
 
     setProgress(100);
   });

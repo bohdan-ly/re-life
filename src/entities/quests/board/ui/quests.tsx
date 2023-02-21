@@ -12,7 +12,7 @@ export const Quests: React.FC<{ className: string }> = ({ className }) => {
     selectedId: model.selectQuestDetailsId(state),
   }));
 
-  const handleObjectiveDone = async (qId: string) => {
+  const handleSelectQuest = async (qId: string) => {
     const { quest } = await model.getQuestById(qId);
     dispatch(model.setQuest(quest));
   };
@@ -37,7 +37,7 @@ export const Quests: React.FC<{ className: string }> = ({ className }) => {
       {quests.map((q, idx) => (
         <li
           key={`${q.id}_${idx}`}
-          onClick={() => handleObjectiveDone(q.id)}
+          onClick={() => handleSelectQuest(q.id)}
           className="relative inline-block py-4 pl-2 pr-8 gap-4 cursor-pointer"
         >
           <span
