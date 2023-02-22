@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "remove:locales": "npx rimraf public/locales",
+    "remove:locales": "node -e \"require('fs').rmSync('public/locales', { recursive: true, force: true })\"",
     "rename": "node -e \"require('fs').rename('public/locales/uk-UA', 'public/locales/ua', function(err) { if (err) console.log(err); console.log('Successfully renamed the directory.') })\"",
     "dev": "npm run remove:locales && i18nexus pull && yarn rename && next dev",
     "build": "npm run remove:locales && i18nexus pull && yarn rename && next build",
@@ -73,7 +73,6 @@
     "node": "^19.6.0",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
-    "renamer": "^4.0.0",
     "sass": "^1.58.2",
     "tailwind.macro": "^0.5.10",
     "tailwindcss": "^3.2.7",
