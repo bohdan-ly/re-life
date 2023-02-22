@@ -6,7 +6,7 @@
     "remove:locales": "node -e \"require('fs').rmSync('public/locales', { recursive: true, force: true })\"",
     "rename": "node -e \"require('fs').rename('public/locales/uk-UA', 'public/locales/ua', function(err) { if (err) console.log(err); console.log('Successfully renamed the directory.') })\"",
     "dev": "npm run remove:locales && i18nexus pull && yarn rename && next dev",
-    "build": "npm run remove:locales && i18nexus pull && yarn rename && next build",
+    "build": "next build",
     "start": "npm run remove:locales && i18nexus pull && yarn rename && next start",
     "lint": "npm run remove:locales && i18nexus pull && yarn rename && next lint"
   },
