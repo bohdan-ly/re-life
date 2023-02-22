@@ -6,6 +6,7 @@ const withPlugins = require('next-compose-plugins');
 const withImages = require('next-images');
 const withOptimizedImages = require('next-optimized-images');
 
+const { i18n } = require('./next-i18next.config.js');
 const withTwin = require('./withTwin');
 
 console.debug(
@@ -37,6 +38,14 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
+  },
+  i18n,
+  env: {
+    NEXT_PUBLIC_APP_NAME: 'ReLifeRPG',
+    NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  },
+  eslint: {
+    dirs: ['components', 'constants', 'hooks', 'locales', 'pages', 'providers', 'utils'],
   },
   webpack(config) {
     config.module.rules.push({

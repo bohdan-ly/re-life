@@ -35,7 +35,9 @@
     "./next-i18next.config.js",
     "./next-sitemap.config.js",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "src/lib/enums/localeName.js",
+    "enums"
   ],
   "exclude": [
     "build",

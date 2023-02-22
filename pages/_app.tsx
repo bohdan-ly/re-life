@@ -1,12 +1,11 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import Router from 'next/router';
+import { appWithTranslation } from 'next-i18next';
 import NProgress from 'nprogress'; //nprogress module
 import { ReactElement, ReactNode } from 'react';
 
 import { GlobalStyles } from 'shared/ui/theme';
-
-import { Footer } from 'widgets/session/footer';
 
 import { Layouts } from 'app';
 import { ConnectAPI } from 'app/providers/with-api';
@@ -49,7 +48,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             <>
               <Component {...pageProps} />
               <GlobalStyles />
-              <Footer />
             </>
           </ConnectAPI>
         )}
@@ -58,4 +56,4 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);

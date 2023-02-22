@@ -3,12 +3,16 @@ import React from 'react';
 
 export const useMediaLayout = () => {
   const windowDefined = typeof window !== 'undefined';
-  const [width, setWidth] = React.useState<number>(windowDefined ? window.innerWidth : 0);
+  const [width, setWidth] = React.useState<number>(0);
 
   const debouncedSizeChange = useDebounceCallback(
     () => setWidth(windowDefined ? window.innerWidth : 0),
     1000,
   );
+
+  React.useEffect(() => {
+    setWidth(window.innerWidth);
+  }, []);
 
   React.useEffect(() => {
     if (windowDefined) window.addEventListener('resize', debouncedSizeChange);

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { useAppDispatch, useAppSelector } from 'shared';
@@ -9,7 +10,7 @@ import * as model from '../model';
 import styles from './details.module.scss';
 
 export const QuestDetails: React.FC<{ className: string }> = ({ className }) => {
-  const [reRender, setReRender] = React.useState(0);
+  const { t } = useTranslation('character');
   const dispatch = useAppDispatch();
   const quest = useAppSelector((state) => model.selectQuestDetails(state));
 
@@ -39,7 +40,7 @@ export const QuestDetails: React.FC<{ className: string }> = ({ className }) => 
         <>
           <ChapterTitle title={quest.title} icon={<Hades />} />
           <div className="flex flex-col items-center">
-            <p className="m-auto">Rank</p>
+            <p className="m-auto uppercase">{t('character:rank')}</p>
             <div className="flex gap-1">
               {new Array(quest.difficulty).fill(0).map((r, idx) => (
                 <Rank key={idx} />
@@ -47,7 +48,11 @@ export const QuestDetails: React.FC<{ className: string }> = ({ className }) => 
             </div>
           </div>
           <div className="font-mono">{quest.description}</div>
-          <ChapterTitle title="Objectives" icon={<MoebiusStar />} />
+          <ChapterTitle
+            title={t('character:objectives')}
+            icon={<MoebiusStar />}
+            className="uppercase"
+          />
           <ul>
             {(quest.objectives || []).map((obj, index) => (
               <li
@@ -71,7 +76,9 @@ export const QuestDetails: React.FC<{ className: string }> = ({ className }) => 
                   />
                 </label>
                 <span className="overflow-hidden text-ellipsis whitespace-nowrap mt-1 text-lg font-mono">
-                  {obj.isOptional && '(Optional) '}
+                  {obj.isOptional && (
+                    <span className="capitalize">{`(${t('character:optional')}) `}</span>
+                  )}
                   {obj.title}
                 </span>
               </li>
@@ -79,15 +86,15 @@ export const QuestDetails: React.FC<{ className: string }> = ({ className }) => 
           </ul>
           <div className="flex flex-col">
             <div className="flex items-end">
-              <span className="text-2xl mr-2">Rewards:</span>
+              <span className="text-2xl mr-2 uppercase">{t('character:rewards')}:</span>
               <p className="mb-1">50XP, 10 gold</p>
             </div>
             <div className="flex items-end">
-              <span className="text-2xl mr-2">Buff:</span>
+              <span className="text-2xl mr-2 uppercase">{t('character:buffs')}:</span>
               <p className="mb-1">None</p>
             </div>
             <div className="flex items-end">
-              <span className="text-2xl mr-2">Debuff:</span>
+              <span className="text-2xl mr-2 uppercase">{t('character:debuffs')}:</span>
               <p className="mb-1">None</p>
             </div>
             <div className="w-full p-[1px] bg-borderPrimary m-auto mt-2" />
