@@ -1,6 +1,8 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/navigation';
 import Router from 'next/router';
+import { SessionProvider, signOut } from 'next-auth/react';
 import { appWithTranslation } from 'next-i18next';
 import NProgress from 'nprogress'; //nprogress module
 import { ReactElement, ReactNode } from 'react';
@@ -29,6 +31,11 @@ type AppPropsWithLayout = AppProps & {
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
+  const router = useRouter();
+
+  const handleSignOut = (e: { preventDefault: () => void }) => {
+    signOut().catch((e) => console.error(e));
+  };
 
   return (
     <>
@@ -44,12 +51,24 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <Layouts
         withLayout={!Component.getLayout}
         component={() => (
-          <ConnectAPI>
-            <>
-              <Component {...pageProps} />
-              <GlobalStyles />
-            </>
-          </ConnectAPI>
+          <SessionProvider session={pageProps.session}>
+            <ConnectAPI>
+              <>
+                <div className="fixed right-2 transform -translate-x-1/2 top-2 z-10">
+                  <button
+                    onClick={handleSignOut}
+                    type="submit"
+                    className="text-primaryColor bg-secondary mt-4 w-full flex justify-center py-2 px-4 border border-secondary rounded-md shadow-sm text-sm font-medium hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-500"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+
+                <Component {...pageProps} />
+                <GlobalStyles />
+              </>
+            </ConnectAPI>
+          </SessionProvider>
         )}
       />
     </>

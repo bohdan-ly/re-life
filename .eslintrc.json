@@ -35,5 +35,6 @@
     "@typescript-eslint/no-floating-promises": "error",
     "no-prototype-builtins": "off",
     "eqeqeq": "error"
-  }
+  },
+  "ignorePatterns": ["pages/api/*.ts"]
 }

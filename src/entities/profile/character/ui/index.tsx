@@ -1,9 +1,13 @@
+import { useSession } from 'next-auth/react';
+
 import { RLImage } from 'shared/ui/components';
 
 import { Achievements } from './achievements';
 import { Attributes } from './attributes';
 
 export const Character = () => {
+  const { data } = useSession();
+
   const characterSrc = '/images/dark_warrior.png';
   return (
     <section className="flex flex-col justify-center relative w-full -translate-y-[30%]">
@@ -18,7 +22,7 @@ export const Character = () => {
           objectFit="cover"
         />
       </div>
-      <h2 className="text-4xl text-center mt-10">Jacob</h2>
+      <h2 className="text-4xl text-center mt-10">{data?.user?.name || 'Anonymous'}</h2>
       <Attributes />
     </section>
   );
