@@ -1,9 +1,14 @@
+import { useThrottleCallback } from '@react-hook/throttle';
+import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 
+import { useDocumentScroll } from 'shared';
 import { Attribute } from 'shared/ui/components';
 import { Mana, Stamina } from 'shared/ui/icons';
 
 export const Attributes = () => {
+  const [visible, setVisible] = React.useState(true);
+  const attrRef = React.useRef<HTMLDivElement | null>(null);
   const [attributes, setAttributes] = React.useState([
     {
       id: '1',
@@ -34,8 +39,33 @@ export const Attributes = () => {
       strokeColor: '#56ff62',
     },
   ]);
+
+  const throttledVisibleChange = useThrottleCallback(({ scrollY }: { scrollY: number }) => {
+    const elementOffset =
+      (attrRef.current && attrRef.current.getBoundingClientRect().top + scrollY - 54) || 100;
+
+    if (elementOffset < 0 && visible) {
+      setVisible(false);
+    }
+
+    if (elementOffset > 0 && !visible) {
+      setVisible(true);
+    }
+  }, 10);
+
+  useDocumentScroll(throttledVisibleChange);
+
   return (
-    <div className="w-1/2 flex flex-col m-auto gap-2">
+    <div
+      ref={attrRef}
+      id="attr-full"
+      className="w-1/2 flex flex-col m-auto gap-2"
+      style={{
+        transform: visible ? 'none' : 'translate(-20%, -100%)',
+        opacity: visible ? 1 : 0,
+        transition: 'all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s',
+      }}
+    >
       {attributes.map((attr) => (
         <Attribute
           key={attr.id}

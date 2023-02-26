@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, HttpStatusCode } from 'axios';
+import { getCookies } from 'cookies-next';
 
 import { notify } from 'shared/ui/theme';
 
@@ -16,6 +17,7 @@ export class Api {
   static async fetch(config: AxiosRequestConfig<any>) {
     try {
       // const fetch = fetchBuilder(originalFetch, options);
+
       const data = await axios<{
         data: {};
         results?: number;
