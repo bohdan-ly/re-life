@@ -1,8 +1,10 @@
+import axios from 'axios';
+import { getCookie } from 'cookies-next';
 import { GetServerSideProps } from 'next';
-import { signIn, getSession, useSession } from 'next-auth/react';
 import React from 'react';
 import { useState } from 'react';
 
+import { getGoogleOAuthURL } from 'shared';
 import { EyeSlashIcon, EyeIcon } from 'shared/ui/icons';
 
 const LoginPage = () => {
@@ -12,9 +14,9 @@ const LoginPage = () => {
 
   React.useEffect(() => {}, []);
 
-  const handleSignIn = () => {
-    signIn('google').catch((e) => console.error(e));
-  };
+  // const handleSignIn = () => {
+  //   signIn('google').catch((e) => console.error(e));
+  // };
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -102,13 +104,12 @@ const LoginPage = () => {
           </div>
 
           <div>
-            <button
-              onClick={handleSignIn}
-              type="submit"
+            <a
+              href={getGoogleOAuthURL()}
               className="text-primaryColor bg-secondary mt-4 w-full flex justify-center py-2 px-4 border border-secondary rounded-md shadow-sm text-sm font-medium hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-500"
             >
               Sign in with Google
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -116,17 +117,28 @@ const LoginPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  // const session = getCookie('refreshToken', { req, res });
 
-  if (session) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
-  }
+  // try {
+  //   const { data } = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/v1/users`, {
+  //     headers: req.headers,
+  //     withCredentials: true,
+  //   });
+
+  //   console.log(data);
+  // } catch (e) {
+  //   console.log(e);
+  // }
+
+  // if (session) {
+  //   return {
+  //     redirect: {
+  //       destination: '/',
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   return {
     props: {},

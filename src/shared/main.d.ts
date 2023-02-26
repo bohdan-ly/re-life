@@ -11,6 +11,12 @@ enum Status {
   ERROR = 'error',
 }
 
+enum ResponseStatus {
+  SUCCESS = 'success',
+  ERROR = 'error',
+  FAIL = 'fail',
+}
+
 type NumericRange<
   START extends number,
   END extends number,

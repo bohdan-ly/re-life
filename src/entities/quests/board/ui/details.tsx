@@ -22,7 +22,7 @@ export const QuestDetails: React.FC<{ className: string }> = ({ className }) => 
   };
 
   const handleCloseQuest = () => {
-    dispatch(model.setQuest(null));
+    dispatch(model.selectQuest(null));
   };
 
   return (

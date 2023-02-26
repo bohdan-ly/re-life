@@ -13,6 +13,7 @@ export type QuestDetails = {
   difficulty: number;
   completed: boolean;
   description: string;
+  createdBy: string;
   objectives: Array<{ id: string; title: string; isDone: boolean; isOptional: boolean }>;
 };
 
@@ -21,6 +22,11 @@ export type QuestSliceState = {
   selectedQuest: QuestDetails | null;
   questStatus: Status;
   status: Status;
+};
+
+export type QuestResponse = {
+  data: any;
+  results: number;
 };
 
 export enum Status {

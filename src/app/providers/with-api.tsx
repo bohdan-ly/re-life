@@ -3,6 +3,7 @@ import LoadingBar from 'react-top-loading-bar';
 import useEvent from 'react-use-event-hook';
 
 import { useAppDispatch, useMediaLayout } from 'shared';
+import { userModel } from 'shared/model';
 
 import { questsModel } from 'entities/quests/board';
 
@@ -17,24 +18,19 @@ export const ConnectAPI: React.FC<{ children: React.ReactNode }> = ({ children }
     '',
   );
 
-  // const user = useSelector((state) => getUser(state));
-  const user = { token: '123', isLoggedIn: true };
-
   const setProgress = useEvent((val: number) => {
-    if (!user) _setProgress(0);
+    if (!true) _setProgress(0);
     else _setProgress(val);
   });
 
   const dispatch = useAppDispatch();
 
-  // const { syncKanbanBoardsData } = AppActions(dispatch);
-
-  // useEventListener("user.logout", () => {
-  //   window.clearTimeout(networkRequestThread);
-  // });
-
   const fetchNecessaryData = useEvent(async () => {
     console.log('Fetching necessary data...');
+
+    await dispatch(userModel.fetchUser());
+
+    setProgress(50);
 
     await dispatch(questsModel.fetchQuests({ withQuestDetails: !isMobile }));
 
@@ -44,7 +40,7 @@ export const ConnectAPI: React.FC<{ children: React.ReactNode }> = ({ children }
   React.useEffect(() => {
     console.log('Init api...');
 
-    if (!user || !user.token || !user.isLoggedIn) {
+    if (!true) {
       setProgress(0);
       window.clearTimeout(networkRequestThread);
       return;

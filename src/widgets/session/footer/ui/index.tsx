@@ -1,9 +1,13 @@
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
+import useEvent from 'react-use-event-hook';
 
+import { useAppDispatch } from 'shared';
 import { NavButton } from 'shared/ui/components';
 import { Quest, Inventory, Character, Quests, Forge } from 'shared/ui/icons';
+
+import { questsModel } from 'entities/quests/board';
 
 type TabProp = {
   title: string;
@@ -15,9 +19,17 @@ type TabProp = {
 
 export const Footer = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const { t, i18n } = useTranslation('common');
 
   const [tabs, setTabs] = React.useState<TabProp[]>([]);
+
+  const handleCreateQuest = useEvent(async () => {
+    const { quest } = await questsModel.createQuest({});
+    if (quest) {
+      dispatch(questsModel.addQuest(quest));
+    }
+  });
 
   React.useEffect(() => {
     setTabs([
@@ -35,9 +47,7 @@ export const Footer = () => {
         title: '',
         path: '',
         className: 'rounded-full bg-secondary -translate-y-2',
-        action: () => {
-          prompt('Please enter quest title');
-        },
+        action: handleCreateQuest,
         icon: <Quest height={36} width={36} className="h-9 w-9 inline-block mb-1" />,
       },
       {
@@ -51,7 +61,7 @@ export const Footer = () => {
         icon: <Forge className="h-6 w-6 inline-block mb-1" />,
       },
     ]);
-  }, [t]);
+  }, [t, handleCreateQuest]);
 
   return (
     <footer className="block fixed bottom-0 inset-x-0 z-50 shadow-lg bg-primaryDarken w-full h-20 border-royal/20">

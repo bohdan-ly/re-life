@@ -1,13 +1,12 @@
-import { useSession } from 'next-auth/react';
-
+import { useAppSelector } from 'shared';
+import { userModel } from 'shared/model';
 import { RLImage } from 'shared/ui/components';
 
 import { Achievements } from './achievements';
 import { Attributes } from './attributes';
 
 export const Character = () => {
-  const { data } = useSession();
-
+  const user = useAppSelector(userModel.selectUser);
   const characterSrc = '/images/dark_warrior.png';
   return (
     <section className="flex flex-col justify-center relative w-full -translate-y-[30%]">
@@ -22,7 +21,7 @@ export const Character = () => {
           objectFit="cover"
         />
       </div>
-      <h2 className="text-4xl text-center mt-10">{data?.user?.name || 'Anonymous'}</h2>
+      <h2 className="text-4xl text-center mt-10">{user.name || 'Anonymous'}</h2>
       <Attributes />
     </section>
   );

@@ -43,6 +43,7 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_APP_NAME: 'ReLifeRPG',
     NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    NEXT_PUBLIC_SERVER_ENDPOINT: process.env.NEXT_PUBLIC_SERVER_ENDPOINT,
   },
   eslint: {
     dirs: ['components', 'constants', 'hooks', 'locales', 'pages', 'providers', 'utils'],

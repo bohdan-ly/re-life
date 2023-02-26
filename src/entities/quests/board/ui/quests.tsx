@@ -14,7 +14,7 @@ export const Quests: React.FC<{ className: string }> = ({ className }) => {
 
   const handleSelectQuest = async (qId: string) => {
     const { quest } = await model.getQuestById(qId);
-    dispatch(model.setQuest(quest));
+    dispatch(model.selectQuest(quest));
   };
 
   const getTextSize = (impact: number) => {

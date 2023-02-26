@@ -11,7 +11,7 @@ export const fetchQuests = createAsyncThunk<
   return withQuestDetails ? res : { quests: res.quests, questDetails: null };
 });
 
-export const fetchQuestDetails = createAsyncThunk<QuestDetails, Record<string, string>>(
+export const fetchQuestDetails = createAsyncThunk<QuestDetails | null, Record<string, string>>(
   'quests/fetchQuestDetails',
   async ({ questId }) => {
     const { quest } = await getQuestById(questId);
@@ -36,7 +36,11 @@ export const questSlice = createSlice({
     setQuestDetailsStatus: (state, action: PayloadAction<Status>) => {
       state.questStatus = action.payload;
     },
-    setQuest: (state, action: PayloadAction<QuestDetails | null>) => {
+    selectQuest: (state, action: PayloadAction<QuestDetails | null>) => {
+      state.selectedQuest = action.payload;
+    },
+    addQuest: (state, action) => {
+      state.quests = [action.payload, ...state.quests];
       state.selectedQuest = action.payload;
     },
   },
@@ -59,7 +63,7 @@ export const questSlice = createSlice({
   },
 });
 
-export const setQuestDetails = createAsyncThunk<QuestDetails, Record<string, string>>(
+export const setQuestDetails = createAsyncThunk<QuestDetails | null, Record<string, string>>(
   'quests/setQuestDetails',
   async ({ qId }) => {
     try {
@@ -77,6 +81,6 @@ export const setQuestDetails = createAsyncThunk<QuestDetails, Record<string, str
 );
 
 // Action creators are generated for each case reducer function
-export const { setQuests, setQuest } = questSlice.actions;
+export const { setQuests, selectQuest, addQuest } = questSlice.actions;
 
 export const questReducer = questSlice.reducer;
