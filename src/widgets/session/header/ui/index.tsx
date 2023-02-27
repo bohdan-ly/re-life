@@ -24,18 +24,19 @@ export const Header = () => {
     const div: HTMLDivElement = bgRef.current;
 
     if (scrollY > 0.1 && !div.className?.includes('bg-primaryDarken')) {
-      div.className = div.className + ' bg-primaryDarken';
+      div.className = div.className + ' bg-primaryDarken shadow-lg';
       bgRef.current = div;
     }
 
     if (scrollY < 0.1 && div.className?.includes('bg-primaryDarken')) {
       div.className = div.className.replace(' bg-primaryDarken', '');
+      div.className = div.className.replace(' shadow-lg', '');
       bgRef.current = div;
     }
   });
 
   return (
-    <header className="block fixed top-0 inset-x-0 z-50 shadow-lg w-full border-royal/20">
+    <header className="block fixed py-2.5 top-0 inset-x-0 z-50 w-full border-royal/20">
       {!user.id && <LoginInterface />}
       {user.id && <UserInterface user={user} />}
 

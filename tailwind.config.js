@@ -24,6 +24,9 @@ module.exports = {
       boxShadow: {
         btPrimary: '0px 15px 10px -15px var(--bg-secondary)',
       },
+      transitionTimingFunction: {
+        'in-expo': 'cubic-bezier(0.17, 0.55, 0.55, 1)',
+      },
       keyframes: {
         shimmer: {
           '100%': {

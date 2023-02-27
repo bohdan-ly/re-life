@@ -4,4 +4,5 @@ export {
   PlusIcon,
   EyeSlashIcon,
   EyeIcon,
+  LockClosedIcon,
 } from '@heroicons/react/24/solid';

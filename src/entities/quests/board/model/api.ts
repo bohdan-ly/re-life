@@ -69,9 +69,12 @@ export const createQuest = async (
     data: questData,
   });
 
-  const { data: questsRes } = data as any;
+  const { data: questsRes } = (data || {}) as any;
 
-  if (!questsRes || !questsRes.id) throw new Error('Failed to fetch quest details');
+  if (!questsRes || !questsRes.id) {
+    // throw new Error('Failed to fetch quest details');
+    return { quest: null };
+  }
 
   const quest = {
     id: questsRes.id,

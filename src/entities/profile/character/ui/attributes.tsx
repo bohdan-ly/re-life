@@ -59,11 +59,10 @@ export const Attributes = () => {
     <div
       ref={attrRef}
       id="attr-full"
-      className="w-1/2 flex flex-col m-auto gap-2"
+      className="w-1/2 flex flex-col m-auto gap-2 transition duration-500 in-expo"
       style={{
         transform: visible ? 'none' : 'translate(-20%, -100%)',
         opacity: visible ? 1 : 0,
-        transition: 'all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s',
       }}
     >
       {attributes.map((attr) => (

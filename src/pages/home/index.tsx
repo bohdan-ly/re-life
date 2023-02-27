@@ -9,11 +9,13 @@ import { ColorPicker } from './color-picker';
 
 export const Home = () => {
   return (
-    <main className={`w-full h-full cursor-default`}>
+    <>
       <Hero />
-      <Character />
-      <Board />
-      {/* <ColorPicker /> */}
-    </main>
+      <main className={`w-full h-full cursor-default`}>
+        <Character />
+        <Board />
+        {/* <ColorPicker /> */}
+      </main>
+    </>
   );
 };
