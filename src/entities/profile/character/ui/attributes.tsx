@@ -67,6 +67,7 @@ export const Attributes = () => {
     >
       {attributes.map((attr) => (
         <Attribute
+          withValue
           key={attr.id}
           percent={attr.value}
           strokeColor={attr.strokeColor}
