@@ -5,7 +5,7 @@ type googleDetails = {
 };
 
 export type User = {
-  id: GUID;
+  id: string;
   email: string;
   name: string;
   google: googleDetails;

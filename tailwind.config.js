@@ -15,6 +15,9 @@ module.exports = {
         primaryColorSemiTransparent: `var(--text-primary-transparent)`,
         primaryColor: `var(--text-primary)`,
         borderPrimary: `var(--border-primary)`,
+        mp: '#04a1dd',
+        sta: '#56ff62',
+        xp: '#f2b61c',
       },
       position: {
         centerY: 'absolute top-1/2 -translate-y-1/2',
@@ -23,6 +26,9 @@ module.exports = {
       },
       boxShadow: {
         btPrimary: '0px 15px 10px -15px var(--bg-secondary)',
+      },
+      transitionTimingFunction: {
+        'in-expo': 'cubic-bezier(0.17, 0.55, 0.55, 1)',
       },
       keyframes: {
         shimmer: {
