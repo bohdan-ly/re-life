@@ -4,3 +4,4 @@ export * from './controls';
 export * from './bars';
 export * from './title';
 export * from './dropdowns';
+export * from './inputs';

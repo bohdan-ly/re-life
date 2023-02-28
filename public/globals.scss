@@ -23,8 +23,10 @@
     color: var(--text-primary);
 
     svg {
+      fill: var(--text-primary);
+
       path {
-        fill: var(--text-primary);
+        fill: inherit;
       }
     }
   }
@@ -34,18 +36,14 @@
 
   header,
   main {
-    padding: 0 15%;
-  }
-
-  main {
-    padding-bottom: 110px;
+    padding: 0 15% 110px 15%;
   }
 }
 
 @media (max-width: 768px) {
   header,
   main {
-    padding: 0 20px;
+    padding: 0 20px 110px 20px;
   }
 }
 

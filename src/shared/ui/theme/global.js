@@ -20,6 +20,7 @@ const CustomStyles = createGlobalStyle`
     --border-primary: ${(props) => addAlpha(invertColor(props.theme.bgColor), 0.44)};
     --text-secondary: #1E293B;
     --color-primary: #E11D48;
+    --color-gold: #e3b224;
   }
   body {
     ${tw`bg-primary text-primaryColor transition-all duration-200`}

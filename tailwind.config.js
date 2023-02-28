@@ -15,9 +15,11 @@ module.exports = {
         primaryColorSemiTransparent: `var(--text-primary-transparent)`,
         primaryColor: `var(--text-primary)`,
         borderPrimary: `var(--border-primary)`,
+        borderFocus: `var(--color-gold)`,
         mp: '#04a1dd',
         sta: '#56ff62',
         xp: '#f2b61c',
+        gold: '#e3b224',
       },
       position: {
         centerY: 'absolute top-1/2 -translate-y-1/2',

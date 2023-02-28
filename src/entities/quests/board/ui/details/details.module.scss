@@ -42,3 +42,15 @@
     }
   }
 }
+
+.rank {
+  &:hover svg {
+    fill: var(--color-gold);
+  }
+
+  & button:hover ~ button {
+    svg {
+      fill: var(--text-primary);
+    }
+  }
+}

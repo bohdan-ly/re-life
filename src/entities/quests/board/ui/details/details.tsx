@@ -1,24 +1,31 @@
+import classNames from 'classnames';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { useAppDispatch, useAppSelector } from 'shared';
-import { ChapterTitle } from 'shared/ui/components';
+import { ChapterTitle, RLTextarea } from 'shared/ui/components';
 import { CloseIcon, Hades, MoebiusStar, Rank } from 'shared/ui/icons';
 
-import * as model from '../model';
+import * as model from '../../model';
 
 import styles from './details.module.scss';
+import { QuestRank } from './quest-rank';
 
 export const QuestDetails: React.FC<{ className: string }> = ({ className }) => {
   const { t } = useTranslation('character');
   const dispatch = useAppDispatch();
   const quest = useAppSelector((state) => model.selectQuestDetails(state));
+  const [descriptionActive, setDescriptionActive] = React.useState(false);
 
   const handleObjectiveDone = (objId: string) => {
     // if (quest) {
     //   quest.objectives[0].isDone = !quest.objectives[0].isDone;
     //   setReRender((count) => count + 1);
     // }
+  };
+
+  const handleEditDescription = (str: string) => {
+    if (quest?.id) dispatch(model.setQuestDetailsStatus({ ...quest, description: str }));
   };
 
   const handleCloseQuest = () => {
@@ -38,16 +45,13 @@ export const QuestDetails: React.FC<{ className: string }> = ({ className }) => 
       />
       {quest && (
         <>
-          <ChapterTitle title={quest.title} icon={<Hades />} />
+          <ChapterTitle title={quest.title} icon={<Hades className="h-8 w-8 min-w-[2rem]" />} />
           <div className="flex flex-col items-center">
             <p className="m-auto uppercase">{t('character:rank')}</p>
-            <div className="flex gap-1">
-              {new Array(quest.difficulty).fill(0).map((r, idx) => (
-                <Rank key={idx} />
-              ))}
-            </div>
+            <QuestRank difficulty={quest.difficulty} />
           </div>
-          <div className="font-mono">{quest.description}</div>
+          <RLTextarea value={quest.description} onSave={(value) => handleEditDescription(value)} />
+
           <ChapterTitle
             title={t('character:objectives')}
             icon={<MoebiusStar />}
