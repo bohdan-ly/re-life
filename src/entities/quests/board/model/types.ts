@@ -6,6 +6,8 @@ export type Quest = {
   completed: boolean;
 };
 
+export type ObjectiveType = { id: string; title: string; isDone: boolean; isOptional: boolean };
+
 export type QuestDetails = {
   id: string;
   title: string;
@@ -14,7 +16,7 @@ export type QuestDetails = {
   completed: boolean;
   description: string;
   createdBy: string;
-  objectives: Array<{ id: string; title: string; isDone: boolean; isOptional: boolean }>;
+  objectives: Array<ObjectiveType>;
 };
 
 export type QuestSliceState = {

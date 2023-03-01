@@ -52,7 +52,7 @@ export const UserInterface: React.FC<{ user: User }> = ({ user }) => {
         options={options}
         button={
           <RLImage
-            className="w-10 h-10 rounded-full cursor-pointer"
+            className="w-10 h-10 min-w-[2.5rem] rounded-full cursor-pointer"
             src={user.photo || ''}
             width={40}
             height={40}

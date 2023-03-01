@@ -13,7 +13,7 @@ export const Quests: React.FC<{ className: string }> = ({ className }) => {
   }));
 
   const handleSelectQuest = async (qId: string) => {
-    const { quest } = await model.getQuestById(qId);
+    const { quest } = await model.api.getQuestById(qId);
     dispatch(model.selectQuest(quest));
   };
 

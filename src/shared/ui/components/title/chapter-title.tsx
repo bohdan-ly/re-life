@@ -5,9 +5,7 @@ type Props = { title: string; icon: JSX.Element; className?: string };
 
 export const ChapterTitle: React.FC<Props> = ({ title, icon, className = '' }) => {
   return (
-    <div
-      className={`relative flex items-center justify-center w-full${className && ' ' + className}`}
-    >
+    <div className={classNames(`relative flex items-center justify-center w-full`, className)}>
       {React.cloneElement(icon, {
         className: classNames(
           'position-centerY left-0 -rotate-90 min-w-[24px]',

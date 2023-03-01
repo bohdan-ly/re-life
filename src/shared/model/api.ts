@@ -30,9 +30,13 @@ export class Api {
 
       if (!data.data) throw new Error('Failed to fetch');
       return data;
-    } catch (err) {
+    } catch (err: any) {
       console.error('Fetch failed');
       console.error(err, config);
+      notify({
+        message: err.msg || err.message || '',
+        type: err.code || '10000',
+      });
       return { data: null, results: 0, status: HttpStatusCode.BadRequest };
     }
   }

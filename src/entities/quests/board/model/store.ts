@@ -30,13 +30,18 @@ export const questSlice = createSlice({
   name: 'quest',
   initialState,
   reducers: {
+    updateQuest: (state, action) => {
+      state.quests = state.quests.map((q) => (q.id === action.payload.id ? action.payload : q));
+      state.selectedQuest = action.payload;
+    },
     setQuests: (state, action) => {
       state.quests = action.payload;
     },
-    setQuestDetails: (state, action: PayloadAction<Status>) => {
+    setQuestDetailsStatus: (state, action: PayloadAction<Status>) => {
       state.questStatus = action.payload;
     },
-    setQuestDetailsStatus: (state, action: PayloadAction<QuestDetails>) => {
+    setQuestDetails: (state, action: PayloadAction<QuestDetails>) => {
+      state.quests = state.quests.map((q) => (q.id === action.payload.id ? action.payload : q));
       state.selectedQuest = action.payload;
     },
     selectQuest: (state, action: PayloadAction<QuestDetails | null>) => {
@@ -67,6 +72,7 @@ export const questSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setQuests, selectQuest, addQuest, setQuestDetailsStatus } = questSlice.actions;
+export const { setQuests, selectQuest, addQuest, setQuestDetails, updateQuest } =
+  questSlice.actions;
 
 export const questReducer = questSlice.reducer;

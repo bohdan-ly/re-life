@@ -2,11 +2,23 @@ import React from 'react';
 
 type RLTextarea = {
   value: string;
+  withAutoFocus?: boolean;
   onSave: (e: string) => void;
 };
 
-export const RLTextarea: React.FC<RLTextarea> = ({ value = '', onSave = (e: string) => {} }) => {
+export const RLTextarea: React.FC<RLTextarea> = ({
+  value = '',
+  withAutoFocus = false,
+  onSave = (e: string) => {},
+}) => {
+  const areaRef = React.useRef<HTMLTextAreaElement | null>(null);
   const [draft, setDraft] = React.useState(value);
+
+  React.useEffect(() => {
+    if (withAutoFocus && areaRef.current) {
+      areaRef.current.focus();
+    }
+  }, []);
 
   React.useEffect(() => {
     setDraft(value);
@@ -14,7 +26,8 @@ export const RLTextarea: React.FC<RLTextarea> = ({ value = '', onSave = (e: stri
 
   return (
     <textarea
-      rows={2}
+      ref={areaRef}
+      rows={4}
       value={draft}
       onChange={(e) => setDraft(e.target.value)}
       onBlur={() => onSave(draft)}

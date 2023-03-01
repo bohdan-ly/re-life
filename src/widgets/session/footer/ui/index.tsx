@@ -50,7 +50,7 @@ export const Footer = () => {
       {
         title: '',
         path: '',
-        className: 'rounded-full bg-secondary -translate-y-2',
+        className: 'rounded-full bg-secondary -translate-y-2 hover:bg-indigo-700',
         action: (e: any) => {
           void handleCreateQuest(e);
         },

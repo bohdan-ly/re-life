@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import Link from 'next/link';
 import React from 'react';
 
@@ -35,9 +36,10 @@ export const NavButton: React.FC<{
     <Link
       href={path || ''}
       onClick={action || (() => {})}
-      className={`w-full focus:text-royal hover:text-royal justify-center text-center pt-2 pb-1 hover:bg-primary items-center flex flex-col${
-        className && ' ' + className
-      }`}
+      className={classNames(
+        `w-full focus:text-royal hover:text-royal justify-center text-center pt-2 pb-1 hover:bg-primary items-center flex flex-col`,
+        className,
+      )}
     >
       {icon}
       <span className={`tab block${(isActive && ' border-b-2 border-secondary') || ''}`}>
