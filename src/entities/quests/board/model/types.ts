@@ -20,7 +20,7 @@ export type QuestDetails = {
 };
 
 export type QuestSliceState = {
-  quests: Quest[];
+  quests: QuestDetails[];
   selectedQuest: QuestDetails | null;
   questStatus: Status;
   status: Status;

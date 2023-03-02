@@ -1,15 +1,16 @@
 import xss from 'xss';
 
-import { useAppDispatch, useAppSelector } from 'shared';
+import { useAppDispatch, useAppSelector, useMediaLayout } from 'shared';
 
 import { questsModel } from '..';
 
-import { patchQuest } from './api';
+import { patchQuest, deleteQuest } from './api';
 import { ObjectiveType, Quest, QuestDetails } from './types';
 
 export const useQuestDetailsActions = (quest: QuestDetails | null) => {
   const dispatch = useAppDispatch();
   const quests = useAppSelector(questsModel.selectQuests);
+  const isMobile = useMediaLayout();
 
   return {
     saveDescription: async (description: string) => {
@@ -79,6 +80,22 @@ export const useQuestDetailsActions = (quest: QuestDetails | null) => {
         }
 
         return newQuest;
+      } catch (err) {
+        console.error(err);
+        return null;
+      }
+    },
+    deleteQuest: async () => {
+      try {
+        if (!quest) return null;
+
+        const { success } = await deleteQuest(quest.id);
+
+        if (success) {
+          dispatch(questsModel.deleteQuest({ id: quest.id, select: !isMobile }));
+        }
+
+        return success;
       } catch (err) {
         console.error(err);
         return null;

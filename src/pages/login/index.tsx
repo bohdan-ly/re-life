@@ -6,7 +6,7 @@ import React from 'react';
 import { useState } from 'react';
 
 import { getGoogleOAuthURL } from 'shared';
-import { GradientButton } from 'shared/ui/components';
+import { BorderedButton } from 'shared/ui/components';
 import { EyeSlashIcon, EyeIcon } from 'shared/ui/icons';
 
 export const LoginPage = () => {
@@ -25,7 +25,7 @@ export const LoginPage = () => {
       <header className="block fixed top-0 inset-x-0 z-50 w-full border-royal/20">
         <div className="relative z-10 px-4 py-2 h-full w-full flex align-center">
           <Link href="/">
-            <GradientButton title="Back" />
+            <BorderedButton title="Back" />
           </Link>
         </div>
       </header>

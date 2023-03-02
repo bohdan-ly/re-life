@@ -21,6 +21,9 @@ module.exports = {
         xp: '#f2b61c',
         gold: '#e3b224',
       },
+      backgroundImage: {
+        silver: `linear-gradient( to bottom, #777e82, #4d4d4d, #7e8589)`,
+      },
       position: {
         centerY: 'absolute top-1/2 -translate-y-1/2',
         center: 'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',

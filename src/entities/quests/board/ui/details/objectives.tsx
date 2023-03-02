@@ -28,12 +28,17 @@ export const Objectives: React.FC<Objectives> = ({ objectives = [], onSave }) =>
 
   const handleCompleteObjective = async (obj: DraftObject) => {
     try {
-      const { objective } = await questsModel.api.createObjective(obj.title);
-      if (objective) {
-        onSave([...objectives, objective]);
-        return;
+      const newTitle = obj.title.trim();
+
+      if (newTitle.length > 0) {
+        const { objective } = await questsModel.api.createObjective(newTitle);
+        if (objective) {
+          onSave([...objectives, objective]);
+          return;
+        }
+        notify({ message: 'Failed to create new objective' });
       }
-      notify({ message: 'Failed to create new objective' });
+      setDraft(draft.filter((d) => d.id !== obj.id));
     } catch (e) {
       console.error(e);
       notify({ message: 'Failed to create new objective' });

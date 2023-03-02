@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 export const GradientButton: React.FC<{
-  title: string;
+  title: string | JSX.Element;
   onClick?: () => void;
   className?: string;
 }> = ({ title, className, onClick = () => {} }) => {
@@ -10,13 +10,11 @@ export const GradientButton: React.FC<{
     <button
       onClick={onClick}
       className={classNames(
-        'relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-primaryColor rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 focus:ring-4 focus:outline-none focus:ring-cyan-200',
+        'text-primaryColor bg-silver hover:ring-1 hover:ring-borderPrimary focus:ring-borderPrimary focus:ring-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center',
         className,
       )}
     >
-      <span className="relative w-full px-5 py-2.5 leading-none transition-all ease-in duration-75 bg-primary rounded-md group-hover:bg-transparent">
-        {title}
-      </span>
+      {title}
     </button>
   );
 };

@@ -13,6 +13,7 @@ const CustomStyles = createGlobalStyle`
   .custom {
     --bg-primary: ${(props) => props.theme.bgColor};
     --bg-primary-dk: ${(props) => colorBlending(-0.4, props.theme.bgColor)};
+    --bg-primary-lg: ${(props) => colorBlending(0.04, props.theme.bgColor)};
     --bg-secondary: ${(props) => props.theme.bgSecondaryColor};
     --text-primary: ${(props) => invertColor(props.theme.bgColor, true)};
     --text-primary-transparent: ${(props) =>

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import { GradientButton } from 'shared/ui/components';
+import { BorderedButton } from 'shared/ui/components';
 
 export const LoginInterface = () => {
   const router = useRouter();
@@ -12,7 +12,7 @@ export const LoginInterface = () => {
   return (
     <div className="relative z-10 px-4 py-2 h-full w-full flex align-center">
       <Link href="/login">
-        <GradientButton title="login" onClick={() => {}} />
+        <BorderedButton title="login" onClick={() => {}} />
       </Link>
     </div>
   );

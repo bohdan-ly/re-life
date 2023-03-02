@@ -1,10 +1,20 @@
 import classNames from 'classnames';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
+import { RemoveScroll } from 'react-remove-scroll';
 
-import { useAppDispatch, useAppSelector } from 'shared';
-import { ChapterTitle, GradientButton, RLTextarea } from 'shared/ui/components';
-import { CheckIcon, CloseIcon, Hades, MoebiusStar, Rank } from 'shared/ui/icons';
+import { useAppDispatch, useAppSelector, useMediaLayout } from 'shared';
+import { ChapterTitle, BorderedButton, RLTextarea, GradientButton } from 'shared/ui/components';
+import { RLDropdown } from 'shared/ui/components';
+import {
+  CheckIcon,
+  CloseIcon,
+  Hades,
+  MoebiusStar,
+  Quill,
+  Rank,
+  SettingsIcon,
+} from 'shared/ui/icons';
 
 import * as model from '../../model';
 import { useQuestDetailsActions, ObjectiveType } from '../../model';
@@ -15,9 +25,10 @@ import { QuestRank } from './quest-rank';
 
 export const QuestDetails: React.FC<{ className: string }> = ({ className }) => {
   const { t } = useTranslation('character');
+  const isMobile = useMediaLayout();
   const dispatch = useAppDispatch();
   const quest = useAppSelector(model.selectQuestDetails);
-  const { saveObjectives, saveDescription, saveRank, completeQuest } =
+  const { saveObjectives, saveDescription, saveRank, completeQuest, deleteQuest } =
     useQuestDetailsActions(quest);
 
   const [descriptionActive, setDescriptionActive] = React.useState(false);
@@ -46,21 +57,54 @@ export const QuestDetails: React.FC<{ className: string }> = ({ className }) => 
     await completeQuest();
   };
 
+  const handleDeleteQuest = async () => {
+    await deleteQuest();
+  };
+
   const handleCloseQuest = () => {
     dispatch(model.selectQuest(null));
   };
 
+  const dropdownOptions = [
+    {
+      title: 'Set time',
+      action: () => {},
+    },
+    {
+      title: 'Delete',
+      action: () => handleDeleteQuest(),
+    },
+  ];
+
   return (
     <article
-      className={`flex flex-col pb-6 px-6 mt-16 md:mt-8 md:px-12 gap-6 ${styles.details} ${className}`}
+      className={classNames(
+        `flex flex-col pb-6 px-6 mt-16 md:mt-8 md:px-12 gap-6`,
+        styles.details,
+        className,
+        RemoveScroll.classNames.fullWidth,
+        RemoveScroll.classNames.zeroRight,
+      )}
     >
       <div className={styles.triangle} />
-      <CheckIcon
+      {/* <CheckIcon
         width={36}
         height={36}
         className="absolute top-5 left-5 md:hidden focus:opacity-40 active:opacity-40"
         onClick={handleCompleteQuest}
-      />
+      /> */}
+      {isMobile && (
+        <div className="flex absolute top-5 left-5">
+          <RLDropdown
+            placement="bottom"
+            triggerElement={<SettingsIcon width={36} height={36} />}
+            options={dropdownOptions}
+            onSelect={() => {
+              handleDeleteQuest().catch((e) => console.error(e));
+            }}
+          />
+        </div>
+      )}
       <CloseIcon
         width={36}
         height={36}
@@ -87,8 +131,9 @@ export const QuestDetails: React.FC<{ className: string }> = ({ className }) => 
           ) : (
             <p
               onClick={() => setDescriptionActive(true)}
-              className="font-mono whitespace-pre-wrap cursor-text break-words"
+              className="font-mono whitespace-pre-wrap cursor-text break-words min-h-[1rem]"
             >
+              {!quest.description && <Quill className="m-auto" />}
               {quest.description}
             </p>
           )}
@@ -118,11 +163,25 @@ export const QuestDetails: React.FC<{ className: string }> = ({ className }) => 
           </div>
         </>
       )}
-      <GradientButton
-        title="Complete"
-        onClick={handleCompleteQuest}
-        className="mt-auto min-h-[2.5rem] relative md:sticky bottom-0"
-      />
+      <div className="md:sticky w-full flex items-center gap-6">
+        <BorderedButton
+          title="Complete"
+          onClick={handleCompleteQuest}
+          className="mt-auto max-h-[2.5rem] relative md:sticky bottom-0 w-full"
+        />
+
+        {!isMobile && (
+          <div className="flex">
+            <RLDropdown
+              triggerElement={<SettingsIcon className="h-5 w-5" />}
+              options={dropdownOptions}
+              onSelect={() => {
+                handleDeleteQuest().catch((e) => console.error(e));
+              }}
+            />
+          </div>
+        )}
+      </div>
     </article>
   );
 };

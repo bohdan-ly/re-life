@@ -55,7 +55,7 @@ export const getQuestById = async (id: string): Promise<{ quest: QuestDetails | 
 };
 
 export const getQuests = async (): Promise<{
-  quests: Quest[];
+  quests: QuestDetails[];
   questDetails: QuestDetails | null;
 }> => {
   const { data } = await Api.fetch({
@@ -67,17 +67,25 @@ export const getQuests = async (): Promise<{
 
   if (!Array.isArray(questsRes)) throw new Error('Quests is not array');
 
-  const quests = questsRes.map((q) => ({
-    id: q._id,
-    title: q.quest,
-    impact: q.impact,
-    difficulty: q.difficulty,
-    completed: q.completed,
+  const quests = questsRes.map((questData) => ({
+    id: questData.id,
+    title: questData.quest,
+    impact: questData.impact,
+    difficulty: questData.difficulty,
+    completed: questData.completed,
+    description: decodeURIComponent(questData.description || ''),
+    createdBy: questData.createdBy,
+    objectives: questData.objectives.map((o: ObjectiveApi) => ({
+      id: o._id,
+      title: o.objective,
+      isDone: o.completed,
+      isOptional: o.optional,
+    })),
   }));
 
-  const { quest } = await getQuestById(quests[0]?.id ?? null);
+  // const { quest } = await getQuestById(quests[0]?.id ?? null);
 
-  return { quests, questDetails: quest };
+  return { quests, questDetails: quests[0] || null };
 };
 
 export const createQuest = async (
@@ -188,4 +196,16 @@ export const patchQuest = async (
   };
 
   return { newQuest };
+};
+
+export const deleteQuest = async (questId: string): Promise<{ success: boolean }> => {
+  if (!questId) return { success: false };
+
+  await Api.fetch({
+    method: 'DELETE',
+    url: `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/quests/${questId}`,
+    withCredentials: true,
+  });
+
+  return { success: true };
 };

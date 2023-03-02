@@ -17,8 +17,6 @@ export const Objective: React.FC<DraftObject & { onSaveObjective: (e: ObjectiveT
   const { t } = useTranslation('character');
 
   const handleSaveDraft = (newTitle: string) => {
-    console.log(newTitle);
-
     onSaveObjective({
       id,
       title: newTitle,

@@ -28,7 +28,7 @@ export const Footer = () => {
   const handleCreateQuest = useEvent(async (e) => {
     e.preventDefault();
 
-    const { quest } = await questsModel.createQuest({});
+    const { quest } = await questsModel.api.createQuest({});
     if (quest) {
       dispatch(questsModel.addQuest(quest));
     }
