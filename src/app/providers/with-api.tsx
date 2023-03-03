@@ -2,9 +2,10 @@ import React from 'react';
 import LoadingBar from 'react-top-loading-bar';
 import useEvent from 'react-use-event-hook';
 
-import { useAppDispatch, useMediaLayout } from 'shared';
+import { useAppDispatch, useAppSelector, useMediaLayout } from 'shared';
 import { userModel } from 'shared/model';
 
+import { characterModel } from 'entities/profile/character';
 import { questsModel } from 'entities/quests/board';
 
 // import { getUser } from "~selectors/userSelectors";
@@ -18,8 +19,11 @@ export const ConnectAPI: React.FC<{ children: React.ReactNode }> = ({ children }
     '',
   );
 
+  // const user = useAppSelector(userModel.selectUser);
+  const user = { id: '13' };
+
   const setProgress = useEvent((val: number) => {
-    if (!true) _setProgress(0);
+    if (!user.id) _setProgress(0);
     else _setProgress(val);
   });
 
@@ -32,6 +36,10 @@ export const ConnectAPI: React.FC<{ children: React.ReactNode }> = ({ children }
 
     setProgress(50);
 
+    await dispatch(characterModel.fetchCharacter());
+
+    setProgress(75);
+
     await dispatch(questsModel.fetchQuests({ withQuestDetails: !isMobile }));
 
     setProgress(100);
@@ -40,7 +48,7 @@ export const ConnectAPI: React.FC<{ children: React.ReactNode }> = ({ children }
   React.useEffect(() => {
     console.log('Init api...');
 
-    if (!true) {
+    if (!user.id) {
       setProgress(0);
       window.clearTimeout(networkRequestThread);
       return;

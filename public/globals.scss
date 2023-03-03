@@ -23,8 +23,10 @@
     color: var(--text-primary);
 
     svg {
+      fill: var(--text-primary);
+
       path {
-        fill: var(--text-primary);
+        fill: inherit;
       }
     }
   }
@@ -32,8 +34,30 @@
     font-family: var(--font-norse);
   }
 
+  header,
   main {
-    padding-bottom: 110px;
+    padding: 0 15% 110px 15%;
+  }
+}
+
+@layer components {
+  .position {
+    &-centerY {
+      @apply absolute top-1/2 transform -translate-y-1/2;
+    }
+    &-center {
+      @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+    }
+    &-centerX {
+      @apply absolute left-1/2 transform -translate-x-1/2;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  header,
+  main {
+    padding: 0 20px 110px 20px;
   }
 }
 
@@ -131,6 +155,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  margin: 0;
 }
 
 // body {
@@ -149,3 +174,18 @@ a {
     color-scheme: dark;
   }
 }
+
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown__content {
+  display: none;
+  position: absolute;
+}
+
+.dropdown--active .dropdown__content {
+  display: block;
+}
+
+// @import './dropdown.scss';

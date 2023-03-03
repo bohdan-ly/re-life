@@ -35,10 +35,22 @@
         top: -$size;
         position: absolute;
         border-bottom: solid calc($size - 2px) transparent;
-        border-top: solid calc($size - 2px) var(--bg-primary);
+        border-top: solid calc($size - 2px) var(bg-primary);
         border-left: solid calc($size - 2px) transparent;
         border-right: solid calc($size - 2px) transparent;
       }
+    }
+  }
+}
+
+.rank {
+  &:hover svg {
+    fill: rgb(var(--color-gold));
+  } 
+
+  & button:hover ~ button {
+    svg {
+      fill: var(--text-primary);
     }
   }
 }

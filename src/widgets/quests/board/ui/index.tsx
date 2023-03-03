@@ -13,7 +13,7 @@ export const Board = () => {
       <Hud>
         <div className="gap-5 grid h-full w-full md:grid-cols-12">
           {(!isMobile || !quest) && (
-            <Quests className="col-span-12 md:flex md:col-span-4 overflow-y-auto" />
+            <Quests className="col-span-12 md:flex md:col-span-4 overflow-y-auto overflow-x-hidden" />
           )}
           {(!isMobile || quest) && (
             <QuestDetails className="col-span-12 md:col-span-8 overflow-y-auto" />

@@ -4,7 +4,7 @@ import { getQuestById, getQuests } from './api';
 import { Quest, QuestDetails, QuestSliceState, Status } from './types';
 
 export const fetchQuests = createAsyncThunk<
-  { quests: Quest[]; questDetails: QuestDetails | null },
+  { quests: QuestDetails[]; questDetails: QuestDetails | null },
   { withQuestDetails: boolean }
 >('quests/fetchQuests', async ({ withQuestDetails = true }) => {
   const res = await getQuests();
@@ -30,18 +30,30 @@ export const questSlice = createSlice({
   name: 'quest',
   initialState,
   reducers: {
-    setQuests: (state, action) => {
+    updateQuest: (state, action: PayloadAction<QuestDetails>) => {
+      state.quests = state.quests.map((q) => (q.id === action.payload.id ? action.payload : q));
+      state.selectedQuest = action.payload;
+    },
+    setQuests: (state, action: PayloadAction<QuestDetails[]>) => {
       state.quests = action.payload;
     },
     setQuestDetailsStatus: (state, action: PayloadAction<Status>) => {
       state.questStatus = action.payload;
     },
+    setQuestDetails: (state, action: PayloadAction<QuestDetails>) => {
+      state.quests = state.quests.map((q) => (q.id === action.payload.id ? action.payload : q));
+      state.selectedQuest = action.payload;
+    },
     selectQuest: (state, action: PayloadAction<QuestDetails | null>) => {
       state.selectedQuest = action.payload;
     },
-    addQuest: (state, action) => {
+    addQuest: (state, action: PayloadAction<QuestDetails>) => {
       state.quests = [action.payload, ...state.quests];
       state.selectedQuest = action.payload;
+    },
+    deleteQuest: (state, action: PayloadAction<{ select: boolean; id: string }>) => {
+      state.quests = state.quests.filter((q) => q.id !== action.payload.id);
+      state.selectedQuest = (action.payload.select && state.quests[0]) || null;
     },
   },
   extraReducers: (builder) => {
@@ -63,24 +75,8 @@ export const questSlice = createSlice({
   },
 });
 
-export const setQuestDetails = createAsyncThunk<QuestDetails | null, Record<string, string>>(
-  'quests/setQuestDetails',
-  async ({ qId }) => {
-    try {
-      questSlice.actions.setQuestDetailsStatus(Status.LOADING);
-      const { quest } = await getQuestById(qId);
-      questSlice.actions.setQuests(quest);
-      questSlice.actions.setQuestDetailsStatus(Status.SUCCESS);
-
-      return quest;
-    } catch (e) {
-      questSlice.actions.setQuestDetailsStatus(Status.ERROR);
-      throw Error('Failed to set quest details');
-    }
-  },
-);
-
 // Action creators are generated for each case reducer function
-export const { setQuests, selectQuest, addQuest } = questSlice.actions;
+export const { setQuests, selectQuest, addQuest, setQuestDetails, updateQuest, deleteQuest } =
+  questSlice.actions;
 
 export const questReducer = questSlice.reducer;

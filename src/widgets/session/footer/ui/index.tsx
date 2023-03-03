@@ -12,8 +12,9 @@ import { questsModel } from 'entities/quests/board';
 type TabProp = {
   title: string;
   path: string;
+  isLocked?: boolean;
   className?: string;
-  action?: () => void;
+  action?: (e: any) => void;
   icon: JSX.Element;
 };
 
@@ -24,8 +25,10 @@ export const Footer = () => {
 
   const [tabs, setTabs] = React.useState<TabProp[]>([]);
 
-  const handleCreateQuest = useEvent(async () => {
-    const { quest } = await questsModel.createQuest({});
+  const handleCreateQuest = useEvent(async (e) => {
+    e.preventDefault();
+
+    const { quest } = await questsModel.api.createQuest({});
     if (quest) {
       dispatch(questsModel.addQuest(quest));
     }
@@ -42,23 +45,28 @@ export const Footer = () => {
         title: t('common:quests'),
         path: '/quests',
         icon: <Quests className="h-6 w-6 inline-block mb-1" />,
+        isLocked: true,
       },
       {
         title: '',
         path: '',
-        className: 'rounded-full bg-secondary -translate-y-2',
-        action: handleCreateQuest,
+        className: 'rounded-full bg-secondary -translate-y-2 hover:bg-indigo-700',
+        action: (e: any) => {
+          void handleCreateQuest(e);
+        },
         icon: <Quest height={36} width={36} className="h-9 w-9 inline-block mb-1" />,
       },
       {
         title: t('common:inventory'),
         path: '/inventory',
         icon: <Inventory className="h-6 w-6 inline-block mb-1" />,
+        isLocked: true,
       },
       {
         title: t('common:forge'),
         path: '/forge',
         icon: <Forge className="h-6 w-6 inline-block mb-1" />,
+        isLocked: true,
       },
     ]);
   }, [t, handleCreateQuest]);
