@@ -47,7 +47,7 @@ export const SpeedDial: React.FC<SpeedDial> = ({ button, className = '', options
             <li
               role="button"
               key={`${o.title || ''}_${idx}`}
-              className="flex justify-center items-center w-[40px] h-[40px] rounded-full border shadow-sm focus:ring-4 focus:outline-none bg-primary"
+              className="flex justify-center items-center w-[40px] h-[40px] rounded-full border shadow-sm focus:ring-4 focus:outline-none bg-primary/70"
               onClick={o.action || (() => {})}
             >
               {o.icon}

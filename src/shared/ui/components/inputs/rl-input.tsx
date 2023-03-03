@@ -28,15 +28,23 @@ export const RLInput: React.FC<RLInput> = ({
     }
   }, [withAutoFocus]);
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      onBlur();
+    }
+  };
+
   return (
     <input
       ref={inputRef}
+      tabIndex={0}
       type={type || 'text'}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       onBlur={onBlur}
+      onKeyDown={handleKeyPress}
       className={classNames(
-        'block p-2.5 w-full z-20 text-sm rounded border focus:ring-blue-500 focus:border-blue-500',
+        'block p-2.5 w-full z-20 rounded border focus:ring-additional focus:border-additional',
         className,
       )}
       placeholder={placeholder || 'Enter here'}

@@ -18,7 +18,7 @@ export const RLTextarea: React.FC<RLTextarea> = ({
     if (withAutoFocus && areaRef.current) {
       areaRef.current.focus();
     }
-  }, []);
+  }, [withAutoFocus]);
 
   React.useEffect(() => {
     setDraft(value);
@@ -31,7 +31,7 @@ export const RLTextarea: React.FC<RLTextarea> = ({
       value={draft}
       onChange={(e) => setDraft(e.target.value)}
       onBlur={() => onSave(draft)}
-      className="font-mono block p-2.5 w-full min-h-[2.5rem] text-sm bg-transparent placeholder-primaryColorSemiTransparent rounded-lg border border-transparent focus-visible:bg-primaryColorSemiTransparent focus-visible:border-borderFocus focus-visible:ring-borderFocus focus:ring-borderFocus focus:border-borderFocus dark:placeholder-gray-400"
+      className="font-mono block p-5 w-full min-h-[6rem] text-sm bg-transparent placeholder-primaryColorSemiTransparent rounded-lg border border-transparent focus-visible:bg-primaryColorSemiTransparent focus-visible:border-borderFocus focus-visible:ring-borderFocus focus:ring-borderFocus focus:border-borderFocus dark:placeholder-gray-400"
       placeholder="Write your own story here..."
     ></textarea>
   );

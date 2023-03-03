@@ -8,10 +8,12 @@ type AttributeProps = ProgressProps & {
   icon?: JSX.Element;
   title: string;
   withValue?: boolean;
+  maxValue?: number;
 };
 
 export const Attribute: React.FC<AttributeProps> = ({
   percent = 0,
+  maxValue = 100,
   strokeWidth = 1,
   strokeColor = '#D3D3D3',
   className = '',
@@ -37,7 +39,11 @@ export const Attribute: React.FC<AttributeProps> = ({
           strokeColor={strokeColor}
           className="h-full w-full -translate-x-[0.5px]"
         />
-        {withValue && <span className="absolute right-0">100/100</span>}
+        {withValue && (
+          <span className="absolute right-0">
+            {percent}/{maxValue}
+          </span>
+        )}
       </div>
     </div>
   );

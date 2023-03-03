@@ -1,26 +1,33 @@
 import { Api } from 'shared/model';
 
-import { ObjectiveType, Quest, QuestDetails, QuestResponse } from './types';
+import { normalizeObjective, normalizeQuest } from './helpers';
+import { ObjectiveType, Quest, QuestDetails, QuestResponse, RewardsType } from './types';
 
-type ObjectiveApi = {
-  objective: String;
-  completed: Boolean;
-  optional: Boolean;
-  description: String;
+export type ObjectiveApi = {
+  objective: string;
+  completed: boolean;
+  optional: boolean;
+  description: string;
   updatedAt?: Date;
   quest?: string;
-  _id?: string;
+  _id: string;
 };
 
-type QuestApi = {
-  quest: String;
-  description: String;
-  impact: Number;
-  difficulty: Number;
-  completed: Boolean;
+export type QuestApi = {
+  _id: string;
+  quest: string;
+  description: string;
+  impact: number;
+  difficulty: number;
+  active: boolean;
+  completed: boolean;
   updatedAt: Date;
-  imageCover: String;
-  objectives: { _id: string }[];
+  createdAt: Date;
+  createdBy: string;
+  type: 'mixed' | 'study' | 'labor';
+  imageCover: string;
+  objectives: ObjectiveApi[];
+  rewards: RewardsType;
 };
 
 export const getQuestById = async (id: string): Promise<{ quest: QuestDetails | null }> => {
@@ -33,23 +40,9 @@ export const getQuestById = async (id: string): Promise<{ quest: QuestDetails | 
 
   const { data: questData } = data as any;
 
-  if (!questData || !questData.id) throw new Error('Failed to fetch quest details');
+  if (!questData || !questData._id) throw new Error('Failed to fetch quest details');
 
-  const quest = {
-    id: questData.id,
-    title: questData.quest,
-    impact: questData.impact,
-    difficulty: questData.difficulty,
-    completed: questData.completed,
-    description: decodeURIComponent(questData.description || ''),
-    createdBy: questData.createdBy,
-    objectives: questData.objectives.map((o: ObjectiveApi) => ({
-      id: o._id,
-      title: o.objective,
-      isDone: o.completed,
-      isOptional: o.optional,
-    })),
-  };
+  const quest = normalizeQuest(questData);
 
   return { quest };
 };
@@ -67,21 +60,7 @@ export const getQuests = async (): Promise<{
 
   if (!Array.isArray(questsRes)) throw new Error('Quests is not array');
 
-  const quests = questsRes.map((questData) => ({
-    id: questData.id,
-    title: questData.quest,
-    impact: questData.impact,
-    difficulty: questData.difficulty,
-    completed: questData.completed,
-    description: decodeURIComponent(questData.description || ''),
-    createdBy: questData.createdBy,
-    objectives: questData.objectives.map((o: ObjectiveApi) => ({
-      id: o._id,
-      title: o.objective,
-      isDone: o.completed,
-      isOptional: o.optional,
-    })),
-  }));
+  const quests = questsRes.map((questData) => normalizeQuest(questData));
 
   // const { quest } = await getQuestById(quests[0]?.id ?? null);
 
@@ -102,43 +81,34 @@ export const createQuest = async (
 
   const { data: questsRes } = (data || {}) as any;
 
-  if (!questsRes || !questsRes.id) {
+  if (!questsRes || !questsRes._id) {
     // throw new Error('Failed to fetch quest details');
     return { quest: null };
   }
 
-  const quest = {
-    id: questsRes.id,
-    title: questsRes.quest,
-    impact: questsRes.impact,
-    difficulty: questsRes.difficulty,
-    completed: questsRes.completed,
-    description: questsRes.description || '',
-    createdBy: questsRes.createdBy,
-    objectives: [],
-  };
+  const quest = normalizeQuest(questsRes);
 
   return { quest };
 };
 
 export const createObjective = async (
   objectiveTitle: string,
+  questId: string,
 ): Promise<{
   objective: ObjectiveType | null;
 }> => {
-  const newObjective: ObjectiveApi = {
-    objective: objectiveTitle,
-    completed: false,
-    optional: false,
-    description: '',
-  };
-
   const { data } =
     (await Api.fetch({
       method: 'post',
       url: `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/objectives`,
       withCredentials: true,
-      data: newObjective,
+      data: {
+        questId: questId,
+        objective: objectiveTitle,
+        completed: false,
+        optional: false,
+        description: '',
+      },
     })) || {};
 
   const { data: objRes } = (data || {}) as any;
@@ -148,12 +118,7 @@ export const createObjective = async (
     return { objective: null };
   }
 
-  const objective = {
-    id: objRes.id,
-    title: objRes.objective,
-    isDone: objRes.completed,
-    isOptional: objRes.optional,
-  };
+  const objective = normalizeObjective(objRes);
 
   return { objective };
 };
@@ -162,21 +127,20 @@ export const patchQuest = async (
 ): Promise<{ newQuest: QuestDetails | null }> => {
   if (!quest.id) return { newQuest: null };
 
-  const delta: QuestApi = {
-    quest: quest.title,
-    description: quest.description,
-    impact: quest.impact,
-    difficulty: quest.difficulty,
-    completed: quest.completed,
-    updatedAt: new Date(),
-    imageCover: '',
-    objectives: quest.objectives.map((o) => ({ _id: o.id })),
-  };
-
   const { data } = await Api.fetch({
     method: 'PATCH',
     url: `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/quests/${quest.id}`,
-    data: delta,
+    data: {
+      quest: quest.title,
+      description: quest.description,
+      impact: quest.impact,
+      difficulty: quest.difficulty,
+      completed: quest.completed,
+      active: quest.active,
+      updatedAt: new Date(),
+      imageCover: '',
+      objectives: quest.objectives.map((o) => ({ _id: o.id })),
+    },
     withCredentials: true,
   });
 
@@ -184,16 +148,7 @@ export const patchQuest = async (
 
   if (!questData || !questData.id) throw new Error('Failed to fetch quest details');
 
-  const newQuest = {
-    id: questData.id,
-    title: questData.quest,
-    impact: questData.impact,
-    difficulty: questData.difficulty,
-    completed: questData.completed,
-    description: questData.description || '',
-    createdBy: questData.createdBy,
-    objectives: [],
-  };
+  const newQuest = normalizeQuest(questData);
 
   return { newQuest };
 };

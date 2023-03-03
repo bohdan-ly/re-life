@@ -1,5 +1,6 @@
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import classNames from 'classnames';
 import React from 'react';
+import { useOnClickOutside } from 'usehooks-ts';
 
 type DropdownItem = {
   id?: string;
@@ -7,6 +8,7 @@ type DropdownItem = {
   rightSlot?: JSX.Element | string | null;
   disabled?: boolean;
   action?: () => void;
+  className?: string;
 };
 
 type RLDropdownProps = {
@@ -14,42 +16,59 @@ type RLDropdownProps = {
   triggerElement?: JSX.Element | null;
   options: DropdownItem[];
   onSelect: (elem: DropdownItem) => void;
+  className?: string;
 };
-
 export const RLDropdown: React.FC<RLDropdownProps> = ({
   placement = 'top',
+  className = '',
   triggerElement,
   options,
   onSelect = () => {},
 }) => {
-  return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
-        <button className="IconButton" aria-label="Customise options">
-          {triggerElement || 'Menu'}
-        </button>
-      </DropdownMenu.Trigger>
+  const ref = React.useRef<HTMLDivElement | null>(null);
 
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content
-          side={placement || 'top'}
-          className="DropdownMenuContent"
-          sideOffset={5}
-        >
-          {options.map((option, idx) => (
-            <DropdownMenu.Item
-              key={option.id || idx}
-              disabled={option.disabled || false}
-              className="DropdownMenuItem"
-              onSelect={option.action || (() => onSelect(option))}
-            >
-              {option.title || 'option'}{' '}
-              {option.rightSlot && <div className="RightSlot">{option.rightSlot}</div>}
-            </DropdownMenu.Item>
-          ))}
-          <DropdownMenu.Arrow className="DropdownMenuArrow" />
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+  const [open, setOpen] = React.useState(false);
+
+  useOnClickOutside(ref, () => setOpen(false));
+
+  return (
+    <div
+      ref={ref}
+      className={classNames(className, {
+        relative: !className,
+      })}
+    >
+      <button
+        id="dropdownNotificationButton"
+        data-dropdown-toggle="dropdownNotification"
+        className="inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400"
+        type="button"
+        onClick={() => setOpen(!open)}
+      >
+        {triggerElement || 'Dropdown'}
+      </button>
+      <div
+        className={classNames(
+          'z-20 w-[100px] flex flex-col bg-primary/50 rounded-lg shadow m-0 absolute top-10 left-0 overflow-hidden',
+          {
+            hidden: !open,
+          },
+        )}
+      >
+        {options.map((data, idx) => (
+          <li
+            key={data.id || idx}
+            className={classNames(
+              'divide-y w-full divide-gray-100 cursor-pointer block px-4 py-2 hover:bg-primary',
+              data.className,
+            )}
+            onClick={(!data.disabled && data.action) || (() => {})}
+          >
+            {data.title || 'option'}{' '}
+            {data.rightSlot && <div className="RightSlot">{data.rightSlot}</div>}
+          </li>
+        ))}
+      </div>
+    </div>
   );
 };

@@ -2,13 +2,17 @@ import { useThrottleCallback } from '@react-hook/throttle';
 import React from 'react';
 import Clock from 'react-live-clock';
 
-import { useDocumentScroll } from 'shared';
+import { useAppSelector, useDocumentScroll } from 'shared';
 import { User } from 'shared/model/session';
 import { Attribute, RLImage, SpeedDial } from 'shared/ui/components';
 import { ClockIcon, ExitIcon, SettingsIcon, UserIcon } from 'shared/ui/icons';
 
+import { characterModel } from 'entities/profile/character';
+
 export const UserInterface: React.FC<{ user: User }> = ({ user }) => {
-  const firstName = user?.name?.split(' ')?.[0] || 'Unknown';
+  const character = useAppSelector(characterModel.selectCharacter);
+
+  const firstName = character?.name?.split(' ')?.[0] || 'Unknown hero';
   const interfaceRef = React.useRef<HTMLDivElement | null>(null);
 
   const [visible, setVisible] = React.useState(false);
@@ -68,17 +72,19 @@ export const UserInterface: React.FC<{ user: User }> = ({ user }) => {
       >
         <div className="mr-4">
           <p className="font-extrabold mt-2">{firstName}</p>
-          <p className="font-extrabold">LV: 1</p>
+          <p className="font-extrabold">LV: {character?.stats?.level}</p>
         </div>
         <div className="flex flex-col w-1/4 gap-y-4">
           <Attribute
-            percent={100}
+            percent={character?.stats?.manapool ?? 100}
+            maxValue={character?.stats?.manapool ?? 100}
             strokeColor={'#04a1dd'}
             className="items-center"
             title={'Mana'}
           />
           <Attribute
-            percent={100}
+            percent={character?.stats?.stamina ?? 100}
+            maxValue={character?.stats?.stamina ?? 100}
             strokeColor={'#56ff62'}
             className="items-center"
             title={'Stamina'}

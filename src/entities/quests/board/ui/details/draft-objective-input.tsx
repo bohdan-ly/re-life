@@ -30,7 +30,7 @@ export const DraftObjectiveInput: React.FC<{
             onChange={handleTextChange}
             onBlur={() => onSave(text)}
             placeholder="Objective description..."
-            className="appearance-none bg-transparent border-none w-full focus:outline-none"
+            className="appearance-none bg-transparent border-none w-full focus:outline-none text-sm"
           />
         </div>
       </div>

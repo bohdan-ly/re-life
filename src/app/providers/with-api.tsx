@@ -5,6 +5,7 @@ import useEvent from 'react-use-event-hook';
 import { useAppDispatch, useAppSelector, useMediaLayout } from 'shared';
 import { userModel } from 'shared/model';
 
+import { characterModel } from 'entities/profile/character';
 import { questsModel } from 'entities/quests/board';
 
 // import { getUser } from "~selectors/userSelectors";
@@ -34,6 +35,10 @@ export const ConnectAPI: React.FC<{ children: React.ReactNode }> = ({ children }
     await dispatch(userModel.fetchUser());
 
     setProgress(50);
+
+    await dispatch(characterModel.fetchCharacter());
+
+    setProgress(75);
 
     await dispatch(questsModel.fetchQuests({ withQuestDetails: !isMobile }));
 

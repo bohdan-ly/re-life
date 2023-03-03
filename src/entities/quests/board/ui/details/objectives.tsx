@@ -14,36 +14,25 @@ import { Objective } from './objective';
 export type DraftObject = ObjectiveType & { isDraft?: boolean };
 
 type Objectives = {
+  questId: string;
   objectives: ObjectiveType[];
-  onSave: (objective: ObjectiveType[]) => void;
+  onSave: (objective: ObjectiveType) => void;
 };
 
-export const Objectives: React.FC<Objectives> = ({ objectives = [], onSave }) => {
-  const dispatch = useAppDispatch();
+export const Objectives: React.FC<Objectives> = ({ questId, objectives = [], onSave }) => {
+  const [curQuestId, setCurQuestId] = React.useState<string | null>(questId);
   const [draft, setDraft] = React.useState<DraftObject[]>(objectives);
 
   React.useEffect(() => {
-    setDraft(objectives);
-  }, [objectives]);
-
-  const handleCompleteObjective = async (obj: DraftObject) => {
-    try {
-      const newTitle = obj.title.trim();
-
-      if (newTitle.length > 0) {
-        const { objective } = await questsModel.api.createObjective(newTitle);
-        if (objective) {
-          onSave([...objectives, objective]);
-          return;
-        }
-        notify({ message: 'Failed to create new objective' });
-      }
-      setDraft(draft.filter((d) => d.id !== obj.id));
-    } catch (e) {
-      console.error(e);
-      notify({ message: 'Failed to create new objective' });
+    if (questId !== curQuestId) {
+      setCurQuestId(questId);
+      setDraft(objectives);
     }
-  };
+    const prevDraft = draft.slice(objectives.length);
+    const newDraft = [...objectives, ...prevDraft];
+    if (JSON.stringify(newDraft) !== JSON.stringify(draft) && questId === curQuestId)
+      setDraft(newDraft);
+  }, [objectives, draft, questId, curQuestId]);
 
   const handleInsertDraftObjective = () => {
     setDraft([
@@ -61,7 +50,7 @@ export const Objectives: React.FC<Objectives> = ({ objectives = [], onSave }) =>
   return (
     <ul className="group/list">
       {draft.map((obj, index) => (
-        <Objective key={obj.id} onSaveObjective={handleCompleteObjective} {...obj} />
+        <Objective key={obj.id} onSaveObjective={onSave} {...obj} />
       ))}
       <li
         className={classNames('transition flex items-center justify-center hover:opacity-100', {

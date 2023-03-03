@@ -40,6 +40,20 @@
   }
 }
 
+@layer components {
+  .position {
+    &-centerY {
+      @apply absolute top-1/2 transform -translate-y-1/2;
+    }
+    &-center {
+      @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+    }
+    &-centerX {
+      @apply absolute left-1/2 transform -translate-x-1/2;
+    }
+  }
+}
+
 @media (max-width: 768px) {
   header,
   main {
@@ -161,4 +175,17 @@ a {
   }
 }
 
-@import './dropdown.scss';
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown__content {
+  display: none;
+  position: absolute;
+}
+
+.dropdown--active .dropdown__content {
+  display: block;
+}
+
+// @import './dropdown.scss';

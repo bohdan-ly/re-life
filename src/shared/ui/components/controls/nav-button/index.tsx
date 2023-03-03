@@ -37,7 +37,7 @@ export const NavButton: React.FC<{
       href={path || ''}
       onClick={action || (() => {})}
       className={classNames(
-        `w-full focus:text-royal hover:text-royal justify-center text-center pt-2 pb-1 hover:bg-primary items-center flex flex-col`,
+        `w-full focus:text-royal hover:text-royal justify-center text-center pt-2 pb-1 hover:bg-secondaryDarken items-center flex flex-col`,
         className,
       )}
     >
