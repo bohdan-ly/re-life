@@ -15,7 +15,7 @@ export const normalizeObjective = (objective: ObjectiveApi): ObjectiveType => {
 export const normalizeQuest = (quest: QuestApi): QuestDetails => {
   const normalizedQuest = {
     id: quest._id,
-    title: quest.quest,
+    title: decodeURIComponent(quest.quest || ''),
     type: quest.type,
     impact: quest.impact,
     difficulty: quest.difficulty,

@@ -10,6 +10,7 @@ export const getUser = async (): Promise<User> => {
   const { data, status } = await Api.fetch({
     url: `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/users/me`,
     withCredentials: true,
+    baseURL: process.env.NEXT_PUBLIC_SERVER_DOMAIN,
   });
 
   if (status !== HttpStatusCode.Ok || !data) throw new Error('Failed to fetch user');
