@@ -1,21 +1,22 @@
 // pages/_document.js
-import Document, { DocumentContext } from 'next/document';
-import { ServerStyleSheet } from 'styled-components';
+import { env } from 'process';
+
+import Document, { DocumentContext, Head, Html } from 'next/document';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
-    const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
+
     try {
       ctx.renderPage = () =>
         originalRenderPage({
           enhanceApp: (App) => (props) =>
-            sheet.collectStyles(
+            (
               <body className="custom">
                 <App {...props} />
-              </body>,
+              </body>
             ),
-          // <Html lang="en">
+          //
           //       <Head />
           //       <body>
           //         <App {...props} />
@@ -28,15 +29,9 @@ export default class MyDocument extends Document {
 
       return {
         ...initialProps,
-        styles: (
-          <>
-            {initialProps.styles}
-            {sheet.getStyleElement()}
-          </>
-        ),
+        styles: <>{initialProps.styles}</>,
       };
     } finally {
-      sheet.seal();
     }
   }
 }

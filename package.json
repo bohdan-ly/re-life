@@ -6,7 +6,8 @@
   "scripts": {
     "remove:locales": "node -e \"require('fs').rmSync('public/locales', { recursive: true, force: true })\"",
     "rename": "node -e \"require('fs').rename('public/locales/uk-UA', 'public/locales/ua', function(err) { if (err) console.log(err); console.log('Successfully renamed the directory.') })\"",
-    "dev": "npm run remove:locales && i18nexus pull && yarn rename && next dev",
+    "dev:lang": "npm run remove:locales && i18nexus pull && yarn rename && next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "npm run remove:locales && i18nexus pull && yarn rename && next start",
     "lint": "npm run remove:locales && i18nexus pull && yarn rename && next lint"
@@ -35,6 +36,7 @@
     "next": "13.1.6",
     "next-auth": "^4.19.2",
     "next-i18next": "^13.1.5",
+    "next-pwa": "^5.6.0",
     "nprogress": "^0.2.0",
     "rc-progress": "^3.4.1",
     "react": "18.2.0",

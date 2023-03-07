@@ -5,6 +5,7 @@ const path = require('path');
 const withPlugins = require('next-compose-plugins');
 const withImages = require('next-images');
 const withOptimizedImages = require('next-optimized-images');
+const withPWA = require('next-pwa');
 
 const { i18n } = require('./next-i18next.config.js');
 const withTwin = require('./withTwin');
@@ -28,6 +29,9 @@ const nextConfig = {
   reactStrictMode: true,
   serverRuntimeConfig: {
     PROJECT_ROOT: __dirname,
+  },
+  compiler: {
+    styledComponents: true,
   },
   images: {
     remotePatterns: [
@@ -76,6 +80,11 @@ const nextConfig = {
 };
 
 module.exports = withPlugins(
-  [[withTwin, withTwinConf], [withImages, withImagesConf], withOptimizedImages],
+  [
+    [withTwin, withTwinConf],
+    [withImages, withImagesConf],
+    withOptimizedImages,
+    [withPWA, { dest: 'public' }],
+  ],
   nextConfig,
 );
