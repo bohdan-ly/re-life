@@ -1,10 +1,6 @@
-import axios from 'axios';
 import { GetStaticPropsContext } from 'next';
+import Head from 'next/head';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import React from 'react';
-
-import { userModel } from 'shared/model';
-import { User, UserResponse } from 'shared/model/session';
 
 import { Footer } from 'widgets/session/footer';
 import { Header } from 'widgets/session/header';
@@ -14,6 +10,9 @@ import { Home as HomePage } from 'pages/home';
 export default function Home() {
   return (
     <>
+      <Head>
+        <title>Home | ReLifeRPG</title>
+      </Head>
       <Header />
       <HomePage />
       <Footer />
