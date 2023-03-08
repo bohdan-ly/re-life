@@ -40,6 +40,8 @@ export const NavButton: React.FC<{
         `w-full focus:text-royal hover:text-royal justify-center text-center pt-2 pb-1 hover:bg-secondaryDarken items-center flex flex-col`,
         className,
       )}
+      passHref
+      scroll
     >
       {icon}
       <span className={`tab block${(isActive && ' border-b-2 border-secondary') || ''}`}>

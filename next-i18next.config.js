@@ -11,9 +11,7 @@ module.exports = {
     defaultLocale: locales.en,
     locales: [locales.en, locales.ua],
     fallbackLng: locales.en,
-    reloadOnPrerender: true,
   },
   react: { useSuspense: false },
   localePath: typeof window === 'undefined' ? path.resolve('./public/locales') : '/locales',
-  reloadOnPrerender: process.env.NODE_ENV === 'development',
 };
