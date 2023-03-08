@@ -1,13 +1,9 @@
-import axios from 'axios';
-import { getCookie } from 'cookies-next';
-import { GetServerSideProps } from 'next';
 import Link from 'next/link';
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { getGoogleOAuthURL } from 'shared';
 import { BorderedButton } from 'shared/ui/components';
-import { EyeSlashIcon, EyeIcon } from 'shared/ui/icons';
+import { EyeIcon, EyeSlashIcon } from 'shared/ui/icons';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');

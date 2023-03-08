@@ -6,7 +6,7 @@ import { appWithTranslation } from 'next-i18next';
 import NProgress from 'nprogress'; //nprogress module
 import { ReactElement, ReactNode } from 'react';
 
-import { GlobalStyles } from 'shared/ui/theme';
+import { TwinGlobalStyles } from 'shared/ui/theme';
 
 import { Layouts } from 'app';
 import { ConnectAPI } from 'app/providers/with-api';
@@ -37,47 +37,17 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   // };
 
   return (
-    <>
-      <Head>
-        <title>ReLifeRPG</title>
-        <meta
-          name="description"
-          content="ReLifeRPG is a gamified daily routine app that helps you level up your productivity and turn your daily tasks into a fun RPG game. Complete quests, gain experience points, and unlock rewards as you progress through your daily routines. With ReLifeRPG, you can transform your boring daily tasks into an exciting adventure and stay motivated to achieve your goals."
-        />
-        <meta name="application-name" content={process.env.NEXT_APP_NAME} />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content={process.env.NEXT_APP_NAME} />
-        <meta name="description" content={process.env.NEXT_APP_DESCRIPTION} />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="theme-color" content="#191919" />
-
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Layouts
-        withLayout={!Component.getLayout}
-        component={() => (
-          <ConnectAPI>
-            <>
-              {/* <div className="fixed right-2 transform -translate-x-1/2 top-2 z-10">
-                <button
-                  onClick={handleSignOut}
-                  type="submit"
-                  className="text-primaryColor bg-secondary mt-4 w-full flex justify-center py-2 px-4 border border-secondary rounded-md shadow-sm text-sm font-medium hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-500"
-                >
-                  Sign Out
-                </button>
-              </div> */}
-
-              <Component {...pageProps} />
-              <GlobalStyles />
-            </>
-          </ConnectAPI>
-        )}
-      />
-    </>
+    <Layouts
+      withLayout={!Component.getLayout}
+      component={() => (
+        <ConnectAPI>
+          <>
+            <Component {...pageProps} />
+            <TwinGlobalStyles />
+          </>
+        </ConnectAPI>
+      )}
+    />
   );
 }
 

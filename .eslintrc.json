@@ -17,7 +17,25 @@
       "typescript": {
         "alwaysTryTypes": true
       }
-    }
+    },
+    "boundaries/elements": [
+      {
+        "type": "pages",
+        "pattern": "pages/*"
+      },
+      {
+        "type": "next.pages",
+        "pattern": "pages/../pages/*"
+      },
+      {
+        "rules": [
+          {
+            "from": "pages",
+            "allow": ["next.pages"]
+          }
+        ]
+      }
+    ]
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
