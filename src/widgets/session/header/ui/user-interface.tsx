@@ -2,7 +2,7 @@ import { useThrottleCallback } from '@react-hook/throttle';
 import React from 'react';
 import Clock from 'react-live-clock';
 
-import { PWA, useAppSelector, useDocumentScroll } from 'shared';
+import { PwaService, useAppSelector, useDocumentScroll } from 'shared';
 import { User } from 'shared/model/session';
 import { Attribute, RLImage, SpeedDial } from 'shared/ui/components';
 import { ClockIcon, ExitIcon, InstallIcon, SettingsIcon, UserIcon } from 'shared/ui/icons';
@@ -27,17 +27,29 @@ export const UserInterface: React.FC<{ user: User }> = ({ user }) => {
       icon: <SettingsIcon className="h-8 w-8" />,
       action: () => {},
     },
-    {
-      title: 'Install',
-      icon: <InstallIcon className="h-8 w-8" />,
-      action: () => PWA.install(),
-    },
+
     {
       title: 'Profile',
       icon: <ExitIcon className="h-8 w-8" />,
       action: () => {},
     },
   ]);
+
+  React.useEffect(() => {
+    if (options.length <= 3) {
+      const newOptions = [...options];
+
+      const PWA = new PwaService(window);
+
+      newOptions.splice(2, 0, {
+        title: 'Install',
+        icon: <InstallIcon className="h-8 w-8" />,
+        action: () => PWA.install(),
+      });
+
+      setOptions(newOptions);
+    }
+  }, [options]);
 
   const throttledVisibleChange = useThrottleCallback(({ scrollY }: { scrollY: number }) => {
     const elem = document.getElementById('attr-full');

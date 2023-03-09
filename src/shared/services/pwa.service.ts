@@ -5,7 +5,7 @@ export class PwaService {
 
   private deferredPrompt: any;
 
-  constructor() {
+  constructor(window: Window & typeof globalThis) {
     window.addEventListener('appinstalled', (evt) => {
       this.deferredPrompt = null;
       this.installed = true;
@@ -69,6 +69,3 @@ export class PwaService {
     this.cancelled = true;
   }
 }
-
-const PWA = new PwaService();
-export { PWA };
