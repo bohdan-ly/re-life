@@ -10,4 +10,5 @@ export {
   ArrowRightOnRectangleIcon as ExitIcon,
   ClockIcon,
   CheckIcon,
+  ArrowDownTrayIcon as InstallIcon,
 } from '@heroicons/react/24/solid';

@@ -2,10 +2,10 @@ import { useThrottleCallback } from '@react-hook/throttle';
 import React from 'react';
 import Clock from 'react-live-clock';
 
-import { useAppSelector, useDocumentScroll } from 'shared';
+import { PWA, useAppSelector, useDocumentScroll } from 'shared';
 import { User } from 'shared/model/session';
 import { Attribute, RLImage, SpeedDial } from 'shared/ui/components';
-import { ClockIcon, ExitIcon, SettingsIcon, UserIcon } from 'shared/ui/icons';
+import { ClockIcon, ExitIcon, InstallIcon, SettingsIcon, UserIcon } from 'shared/ui/icons';
 
 import { characterModel } from 'entities/profile/character';
 
@@ -26,6 +26,11 @@ export const UserInterface: React.FC<{ user: User }> = ({ user }) => {
       title: 'Profile',
       icon: <SettingsIcon className="h-8 w-8" />,
       action: () => {},
+    },
+    {
+      title: 'Install',
+      icon: <InstallIcon className="h-8 w-8" />,
+      action: () => PWA.install(),
     },
     {
       title: 'Profile',
