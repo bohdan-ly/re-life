@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://reliferpg.xyz
+
+# Sitemaps
+Sitemap: https://reliferpg.xyz/sitemap.xml

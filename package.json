@@ -14,7 +14,8 @@
     "lint": "next lint",
     "pwa": "next build && next start",
     "static": "next build && next export",
-    "serve": "npm run static && next start"
+    "serve": "npm run static && next start",
+    "sitemap": "next-sitemap"
   },
   "browser": {
     "fs": false,
@@ -123,6 +124,7 @@
     "next-compose-plugins": "^2.2.1",
     "next-images": "^1.8.4",
     "next-optimized-images": "^2.6.2",
+    "next-sitemap": "^4.0.5",
     "node": "^19.6.0",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
