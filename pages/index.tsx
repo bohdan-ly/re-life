@@ -12,6 +12,10 @@ export default function Home() {
     <>
       <Head>
         <title>Home | ReLifeRPG</title>
+        <meta
+          name="description"
+          content="ReLifeRPG is a gamified daily routine app that helps you level up your productivity and turn your daily tasks into a fun RPG game. Complete quests, gain experience points, and unlock rewards as you progress through your daily routines. With ReLifeRPG, you can transform your boring daily tasks into an exciting adventure and stay motivated to achieve your goals."
+        />
       </Head>
       <Header />
       <HomePage />
