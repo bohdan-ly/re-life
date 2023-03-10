@@ -18,7 +18,7 @@ const getInitialTheme = (): Theme => {
 
     if (userMedia.matches) {
       return {
-        bgColor: '#000000',
+        bgColor: '#191919',
         textColor: '#ffffff',
         buttonColor: '#007aff',
         bgSecondaryColor: '#007aff',
@@ -27,7 +27,7 @@ const getInitialTheme = (): Theme => {
   }
 
   return {
-    bgColor: '#000000',
+    bgColor: '#191919',
     textColor: '#ffffff',
     buttonColor: '#007aff',
     bgSecondaryColor: '#007aff',
@@ -37,7 +37,7 @@ const getInitialTheme = (): Theme => {
 export const ThemeContext = React.createContext({
   theme: {
     bgColor: '#ffffff',
-    textColor: '#000000',
+    textColor: '#191919',
     buttonColor: '#007aff',
     bgSecondaryColor: '#007aff',
   },

@@ -50,7 +50,8 @@ export const Footer = () => {
       {
         title: '',
         path: '',
-        className: 'rounded-full bg-secondary -translate-y-2 hover:bg-indigo-700',
+        className:
+          'rounded-full border bg-primaryDarken -translate-y-2 max-w-[100px] hover:border-gold',
         action: (e: any) => {
           void handleCreateQuest(e);
         },
@@ -72,13 +73,13 @@ export const Footer = () => {
   }, [t, handleCreateQuest]);
 
   return (
-    <footer className="block fixed bottom-0 inset-x-0 z-50 shadow-lg bg-primaryDarken w-full h-20 border-royal/20">
+    <footer className="block fixed bottom-0 inset-x-0 z-50 bg-primaryDarken w-full border-royal/20 pb-2 md:pb-1">
       <nav id="tabs" className="flex justify-between h-full">
         {tabs.map((tab, idx) => (
           <NavButton
             key={tab.title + idx}
             isActive={router.route.includes(tab.path)}
-            className="uppercase"
+            className="uppercase py-6"
             {...tab}
           />
         ))}

@@ -16,14 +16,19 @@ export const NavButton: React.FC<{
   if (isLocked) {
     return (
       <div
-        className={`w-full focus:text-royal hover:text-royal justify-center text-center pt-2 pb-1 hover:bg-primary items-center flex flex-col${
-          className && ' ' + className
-        }`}
+        className={classNames(
+          `w-full focus:text-royal hover:text-royal justify-center text-center hover:bg-primaryDarken items-center flex flex-col`,
+          className,
+        )}
       >
         <LockButton>
           <>
             {icon}
-            <span className={`tab block${(isActive && ' border-b-2 border-secondary') || ''}`}>
+            <span
+              className={classNames(`tab hidden md:block`, {
+                'border-b-2 border-secondary': isActive,
+              })}
+            >
               {title || ''}
             </span>
           </>
@@ -37,14 +42,18 @@ export const NavButton: React.FC<{
       href={path || ''}
       onClick={action || (() => {})}
       className={classNames(
-        `w-full focus:text-royal hover:text-royal justify-center text-center pt-2 pb-1 hover:bg-secondaryDarken items-center flex flex-col`,
+        `w-full focus:text-royal hover:text-royal justify-center text-center pt-2 pb-1 hover:bg-primaryColorSemiTransparent items-center flex flex-col`,
         className,
       )}
       passHref
       scroll
     >
       {icon}
-      <span className={`tab block${(isActive && ' border-b-2 border-secondary') || ''}`}>
+      <span
+        className={classNames(`tab hidden md:block`, {
+          'border-b-2 border-secondary': isActive,
+        })}
+      >
         {title || ''}
       </span>
     </Link>

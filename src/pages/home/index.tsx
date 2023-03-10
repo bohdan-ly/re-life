@@ -11,7 +11,7 @@ export const Home = () => {
   return (
     <>
       <Hero />
-      <main className={`w-full h-full cursor-default`}>
+      <main className={`w-full cursor-default`}>
         <Character />
         <Board />
         {/* <ColorPicker /> */}

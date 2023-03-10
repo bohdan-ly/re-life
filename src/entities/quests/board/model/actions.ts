@@ -116,7 +116,7 @@ export const useQuestDetailsActions = (quest: QuestDetails | null) => {
       try {
         if (!quest) return null;
 
-        const { newQuest } = await patchQuest({ ...quest, completed: true });
+        const { newQuest } = await patchQuest({ ...quest, active: false, completed: true });
 
         if (newQuest) {
           dispatch(questsModel.updateQuest(newQuest));

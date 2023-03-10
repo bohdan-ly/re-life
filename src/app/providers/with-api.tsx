@@ -32,7 +32,12 @@ export const ConnectAPI: React.FC<{ children: React.ReactNode }> = ({ children }
   const fetchNecessaryData = useEvent(async () => {
     console.log('Fetching necessary data...');
 
-    await dispatch(userModel.fetchUser());
+    const { payload: user } = await dispatch(userModel.fetchUser());
+
+    if (!user) {
+      setProgress(100);
+      return;
+    }
 
     setProgress(50);
 

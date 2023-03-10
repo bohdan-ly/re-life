@@ -47,14 +47,23 @@ export const Objectives: React.FC<Objectives> = ({ questId, objectives = [], onS
     ]);
   };
 
+  const handleRemoveDraftObjective = (id: string) => {
+    setDraft(draft.filter((o) => o.id !== id));
+  };
+
   return (
-    <ul className="group/list">
+    <ul className="group/list space-y-2">
       {draft.map((obj, index) => (
-        <Objective key={obj.id} onSaveObjective={onSave} {...obj} />
+        <Objective
+          key={obj.id}
+          onSaveObjective={onSave}
+          onRemoveObjective={handleRemoveDraftObjective}
+          {...obj}
+        />
       ))}
       <li
         className={classNames('transition flex items-center justify-center hover:opacity-100', {
-          'opacity-0': !!draft.length,
+          'md:opacity-0': !!draft.length,
           'pt-8': !!draft.length,
         })}
       >

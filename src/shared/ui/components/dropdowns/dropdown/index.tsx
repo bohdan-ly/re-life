@@ -31,6 +31,13 @@ export const RLDropdown: React.FC<RLDropdownProps> = ({
 
   useOnClickOutside(ref, () => setOpen(false));
 
+  const onOptionSelect = (data: DropdownItem) => {
+    if (data.disabled) return;
+
+    if (data.action) data.action();
+    setOpen(false);
+  };
+
   return (
     <div
       ref={ref}
@@ -62,7 +69,7 @@ export const RLDropdown: React.FC<RLDropdownProps> = ({
               'divide-y w-full divide-gray-100 cursor-pointer block px-4 py-2 hover:bg-primary',
               data.className,
             )}
-            onClick={(!data.disabled && data.action) || (() => {})}
+            onClick={() => onOptionSelect(data)}
           >
             {data.title || 'option'}{' '}
             {data.rightSlot && <div className="RightSlot">{data.rightSlot}</div>}

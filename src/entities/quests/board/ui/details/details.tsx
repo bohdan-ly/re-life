@@ -97,7 +97,7 @@ export const QuestDetails: React.FC<{ className: string }> = ({ className }) => 
   return (
     <article
       className={classNames(
-        `flex flex-col pb-24 md:pb-6 px-6 mt-16 md:mt-8 md:px-12 gap-6`,
+        `flex flex-col pb-10 md:pb-6 px-6 mt-16 md:mt-8 md:px-12 gap-6`,
         styles.details,
         className,
       )}
@@ -150,7 +150,6 @@ export const QuestDetails: React.FC<{ className: string }> = ({ className }) => 
             <p className="m-auto uppercase">{t('character:rank')}</p>
             <QuestRank difficulty={quest.difficulty} onSelect={handleEditRank} />
           </div>
-
           {descriptionActive ? (
             <RLTextarea
               withAutoFocus
@@ -162,6 +161,7 @@ export const QuestDetails: React.FC<{ className: string }> = ({ className }) => 
               onClick={() => setDescriptionActive(true)}
               className={classNames('font-mono whitespace-pre-wrap cursor-text break-words', {
                 'min-h-[1rem]': !quest.description,
+                'min-h-[6rem]': !!quest.description,
               })}
             >
               {!quest.description && <Quill className="m-auto" />}
@@ -199,7 +199,7 @@ export const QuestDetails: React.FC<{ className: string }> = ({ className }) => 
           </div>
         </>
       )}
-      <div className="left-0 bottom-36 fixed px-8 md:px-0 md:bottom-0 md:sticky w-full flex items-center gap-6 mt-2">
+      <div className="left-0 bottom-28 md:px-0 md:bottom-0 md:sticky w-full flex items-center gap-6 mt-2">
         {!quest?.completed && (
           <>
             <BorderedButton

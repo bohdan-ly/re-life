@@ -22,6 +22,10 @@ export const ChapterTitle: React.FC<Props> = ({
 }) => {
   const [value, setValue] = React.useState(title);
 
+  React.useEffect(() => {
+    setValue(title);
+  }, [title]);
+
   return (
     <div className={classNames(`relative flex items-center justify-center w-full`, className)}>
       {React.cloneElement(icon, {
@@ -31,12 +35,12 @@ export const ChapterTitle: React.FC<Props> = ({
         <div className="relative w-full">
           <RLInput
             type="text"
-            value={value}
+            value={value === 'Epic quest' ? '' : value}
             withAutoFocus
             onChange={setValue}
             onBlur={() => onSave(value)}
             placeholder="Epic quest..."
-            className="appearance-none bg-transparent border-none w-full focus:outline-none text-2xl px-4"
+            className="appearance-none bg-transparent border-none shadow-bottomPrimary w-full focus:outline-none text-2xl px-4 text-center"
           />
         </div>
       ) : (

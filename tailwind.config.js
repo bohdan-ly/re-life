@@ -35,7 +35,8 @@ module.exports = {
         centerX: 'absolute left-1/2 transform -translate-x-1/2',
       },
       boxShadow: {
-        btPrimary: '0px 15px 10px -15px var(--bg-secondary)',
+        btPrimary: '0px 15px 10px -15px rgb(var(--bg-secondary) / 1)',
+        bottomPrimary: 'inset 0px -2px 0px 0px var(--border-primary)',
       },
       transitionTimingFunction: {
         'in-expo': 'cubic-bezier(0.17, 0.55, 0.55, 1)',
