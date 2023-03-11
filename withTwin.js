@@ -2,7 +2,6 @@
 const path = require('path');
 
 // The folders containing files importing twin.macro
-console.log('DIRNAME', __dirname);
 const includedDirs = [path.resolve(__dirname, 'src/shared')];
 
 module.exports = function withTwin() {
