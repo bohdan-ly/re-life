@@ -31,7 +31,7 @@ export const LoginPage = () => {
       <div className="relative z-10">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <h2 className="mt-6 text-center text-3xl font-extrabold text-primaryColor select-none">
-            Sign in to your account
+            Step into a world of endless
           </h2>
         </div>
 
@@ -43,7 +43,12 @@ export const LoginPage = () => {
           </div>
         </div>
       </div>
-      <React.Suspense fallback={<Loading className="absolute h-full w-full" />}>
+
+      <React.Suspense
+        fallback={
+          <Loading className="absolute top-1/3 w-full flex items-start justify-center fill-red" />
+        }
+      >
         <SceneShow />
       </React.Suspense>
     </div>
