@@ -4459,6 +4459,11 @@ form-data@^4.0.0:
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
+fps-locker@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/fps-locker/-/fps-locker-0.0.1.tgz#fa83849e48115abb89449c1e1335ffb824eb938e"
+  integrity sha512-6ipBHdzoLJxLpNct2Z5cvNSzwtyEWgXu6VzXywNdHcyydAlLIn28CCQ+Ln0BZI5dxy/NVbfqFrTJTl7hpv2GZg==
+
 fraction.js@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.2.0.tgz#448e5109a313a3527f5a3ab2119ec4cf0e0e2950"
@@ -4738,11 +4743,6 @@ grapheme-splitter@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/grapheme-splitter/-/grapheme-splitter-1.0.4.tgz#9cf3a665c6247479896834af35cf1dbb4400767e"
   integrity sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==
-
-gsap@^3.11.4:
-  version "3.11.4"
-  resolved "https://registry.yarnpkg.com/gsap/-/gsap-3.11.4.tgz#e6d972d3509a7431b86d81d6fc3bbeb6862e5ff1"
-  integrity sha512-McHhEguHyExMMnjqKA8G+7TvxmlKQGMbjgwAilnFe1e4id7V/tFveRQ2YMZhTYu0oxHGWvbPltdVYQOu3z1SCA==
 
 has-bigints@^1.0.1, has-bigints@^1.0.2:
   version "1.0.2"

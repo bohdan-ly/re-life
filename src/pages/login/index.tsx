@@ -1,12 +1,20 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React from 'react';
 
-import { BorderedButton } from 'shared/ui/components';
+import { BorderedButton, Loading } from 'shared/ui/components';
 
 import { GoogleAuthButton } from 'features/login';
 
+const SceneShow = React.lazy(() =>
+  import('shared/ui/3d').then((module) => ({ default: module.SceneShow })),
+);
+
 export const LoginPage = () => {
+  React.useEffect(() => {
+    // NebulaFire();
+  }, []);
+
   return (
     <div className="min-h-screen bg-primary flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <Head>
@@ -22,8 +30,8 @@ export const LoginPage = () => {
       </header>
       <div className="relative z-10">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-primaryColor">
-            Sign in to your account
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-primaryColor select-none">
+            Step into a world of endless
           </h2>
         </div>
 
@@ -35,6 +43,14 @@ export const LoginPage = () => {
           </div>
         </div>
       </div>
+
+      <React.Suspense
+        fallback={
+          <Loading className="absolute top-1/3 w-full flex items-start justify-center fill-red" />
+        }
+      >
+        <SceneShow />
+      </React.Suspense>
     </div>
   );
 };

@@ -49,6 +49,7 @@ export const NavButton: React.FC<{
       scroll
     >
       {icon}
+      <div className="w-1/5 mt-2 h-[2px] bg-gold" />
       <span
         className={classNames(`tab hidden md:block`, {
           'border-b-2 border-secondary': isActive,
