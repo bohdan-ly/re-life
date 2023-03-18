@@ -12,6 +12,7 @@ import { questsModel } from 'entities/quests/board';
 type TabProp = {
   title: string;
   path: string;
+  isAction?: boolean;
   isLocked?: boolean;
   className?: string;
   action?: (e: any) => void;
@@ -55,6 +56,7 @@ export const Footer = () => {
         action: (e: any) => {
           void handleCreateQuest(e);
         },
+        isAction: true,
         icon: <Quest height={36} width={36} className="h-9 w-9 inline-block mb-1" />,
       },
       {

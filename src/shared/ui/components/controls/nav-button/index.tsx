@@ -8,11 +8,21 @@ export const NavButton: React.FC<{
   path: string;
   title: string;
   icon: JSX.Element;
+  isAction?: boolean;
   isLocked?: boolean;
   isActive?: boolean;
   className?: string;
   action?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
-}> = ({ path, title, icon, isLocked = false, isActive = false, className = '', action }) => {
+}> = ({
+  path,
+  title,
+  icon,
+  isLocked = false,
+  isAction = false,
+  isActive = false,
+  className = '',
+  action,
+}) => {
   if (isLocked) {
     return (
       <div
@@ -49,6 +59,7 @@ export const NavButton: React.FC<{
       scroll
     >
       {icon}
+      {!isAction && <div className="w-1/5 mt-2 h-[2px] bg-gold md:hidden" />}
       <span
         className={classNames(`tab hidden md:block`, {
           'border-b-2 border-secondary': isActive,
