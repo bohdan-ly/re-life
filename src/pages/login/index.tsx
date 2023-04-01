@@ -9,6 +9,9 @@ import { GoogleAuthButton } from 'features/login';
 const SceneShow = React.lazy(() =>
   import('shared/ui/3d').then((module) => ({ default: module.SceneShow })),
 );
+const Character = React.lazy(() =>
+  import('shared/ui/3d').then((module) => ({ default: module.Character })),
+);
 
 export const LoginPage = () => {
   React.useEffect(() => {
@@ -49,7 +52,7 @@ export const LoginPage = () => {
           <Loading className="absolute top-1/3 w-full flex items-start justify-center fill-red" />
         }
       >
-        <SceneShow />
+        <Character />
       </React.Suspense>
     </div>
   );

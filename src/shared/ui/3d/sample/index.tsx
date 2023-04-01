@@ -66,7 +66,7 @@ type GLTFResult = GLTF & {
 
 const CharacterModel = ({ ...props }) => {
   const group = React.useRef<Group>(null);
-  const { nodes, materials } = useGLTF('/textures/toukui.glb') as GLTFResult;
+  const { nodes, materials } = useGLTF('/textures/helmet/toukui.glb') as GLTFResult;
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
